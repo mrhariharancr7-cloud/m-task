@@ -1,4 +1,5 @@
 import {useState} from "react";
+import { Link } from "react-router-dom";
 
 
 function Login() {
@@ -8,12 +9,13 @@ function Login() {
 
 
     return(
-        <div>
+        <div className="login-page">
+            <div className="login-card">
             <h1>M-Task</h1>
             <h2>Login</h2>
         
 
-        <div>
+        <div className="input-group">
            <label>Email:</label>
 
 
@@ -27,7 +29,7 @@ function Login() {
 
         <br />
 
-        <div>
+        <div className="input-group">
             <label>Password:</label>
 
 
@@ -42,8 +44,14 @@ function Login() {
 
         <br />
 
-        <button>login</button>
+        <button className="login-button">login</button>
+
+        <p>
+            Don't have an account?{" "}
+            <Link to="/register">Register</Link>
+        </p>
         </div>
+       </div> 
     );
 }
 
