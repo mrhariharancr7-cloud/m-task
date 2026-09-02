@@ -27,7 +27,6 @@ function Login() {
              />
         </div>
 
-        <br />
 
         <div className="input-group">
             <label>Password:</label>
@@ -42,9 +41,8 @@ function Login() {
 
         </div>
 
-        <br />
 
-        <button className="login-button">login</button>
+        <button className="login-button">Login</button>
 
         <p>
             Don't have an account?{" "}
