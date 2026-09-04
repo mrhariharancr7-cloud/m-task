@@ -13,6 +13,7 @@ function Landing() {
                 <a href="#features">Features</a>
                 <a href="#contact">Contact</a>
                 <Link to="/login">Login</Link>
+                <Link to="/register">Register</Link>
             </div>
         </nav>
 

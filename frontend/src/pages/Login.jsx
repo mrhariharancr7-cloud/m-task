@@ -1,11 +1,41 @@
 import {useState} from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 
 function Login() {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const navigate = useNavigate();
+
+    const  handleLogin = async (e) => {
+       e.preventDefault();
+
+       const response = await fetch("http://localhost:5001/api/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            email,
+            password
+        })
+       });
+
+       const data = await response.json();
+
+       if (response.ok) {
+        localStorage.setItem("token", data.token);
+        localStorage.setItem("role" , data.role);
+
+        navigate("/dashboard");
+        console.log("Login Successful");
+        console.log(data);
+       } else {
+        console.log(data.message);
+       }
+    };
 
 
     return(
@@ -42,7 +72,10 @@ function Login() {
         </div>
 
 
-        <button className="login-button">Login</button>
+        <button 
+        className="login-button"
+        onClick={handleLogin}
+        >Login</button>
 
         <p>
             Don't have an account?{" "}

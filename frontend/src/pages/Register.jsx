@@ -1,10 +1,31 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { jsxs } from "react/jsx-runtime";
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch("http://localhost:5001/api/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name,
+        email,
+        password
+      })
+    });
+
+    const data = await response.json();
+
+    console.log(data);
+    };
 
   return (
     <div className="login-page">
@@ -48,7 +69,10 @@ function Register() {
 
         <br />
 
-        <button className="login-button">Register</button>
+        <button className="login-button"
+         onClick={handleRegister}
+         >
+          Register</button>
 
         <p>
           Already have an account?{" "}
