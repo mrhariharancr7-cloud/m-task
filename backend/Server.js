@@ -7,6 +7,7 @@ import cors from "cors";
 import jwt from "jsonwebtoken";
 import authMiddleware from "./middleware/authmiddleware.js";
 import roleMiddleware from "./middleware/rolemiddleware.js";
+import Task from "./models/Task.js";
 
 dotenv.config();
 
@@ -77,11 +78,91 @@ app.post("/api/login", async (req, res) => {
 
 app.get("/api/profile", authMiddleware, async (req, res) => {
 
+    const user = await User.findById(req.user.userId).select("-password");
+
+    if (!user) {
+        return res.status(404).json({
+            message: "user not found"
+        });
+    }
+
     res.status(200).json({
         message: "you are authorized",
-        user: req.user
+        user: user
     });
 
+});
+
+app.post("/api/tasks", authMiddleware, async (req, res) => {
+    const { title } = req.body;
+
+    const task = new Task({
+        title,
+        user: req.user.userId
+    });
+
+    await task.save();
+
+    res.status(201).json({
+        message: "Task created Successfully",
+        task
+    });
+});
+
+app.get("/api/tasks", authMiddleware, async (req, res) => {
+    const tasks = await Task.find({
+        user:req.user.userId
+    });
+
+    res.status(200).json({
+        tasks
+    });
+});
+
+app.put("/api/tasks/:id", authMiddleware, async (req, res) => {
+    const { id } = req.params;
+    const { title,completed } = req.body;
+
+    const task = await Task.findOneAndUpdate(
+        {
+            _id: id,
+            user: req.user.userId
+        },
+        {
+            title,completed
+        },
+        {new: true}
+    );
+
+    if (!task) {
+        return res.status(404).json({
+            message: "Task not found"
+        });
+    }
+
+    res.status(200).json({
+        message: "Task Updated Successfully",
+        task
+    });
+});
+
+app.delete("/api/tasks/:id", authMiddleware, async (req, res) => {
+    const { id } = req.params;
+
+    const task = await Task.findOneAndDelete({
+        _id: id,
+        user: req.user.userId
+    });
+
+    if (!task) {
+        return res.status(404).json({
+            message: "Task not found"
+        });
+    }
+
+    res.status(200).json({
+        message: "Task deleted successfully"
+    });
 });
 
 app.get("/api/admin", authMiddleware,roleMiddleware("admin"),(req, res) => {
