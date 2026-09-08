@@ -1,12 +1,22 @@
 import { useEffect,useState } from "react";
-import { useNavigate } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
+import "../App.css";
 
 function Dashboard() {
     const [user, setUser] = useState(null);
     const [tasks, setTasks] = useState([]);
     const [title, setTitle] = useState("");
     const [editTaskId, setEditTaskId] = useState(null);
+    const totalTasks = tasks.length;
+    const completedTasks = tasks.filter((task) => task.completed).length;
+    const pendingTasks = tasks.filter((task) => !task.completed).length;
     const navigate = useNavigate();
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        localStorage.removeItem("role");
+        navigate("/login");
+    };
 
     const handleAddTask = () => {
         const token = localStorage.getItem("token");
@@ -106,6 +116,40 @@ function Dashboard() {
         setTitle(task.title);
     };
 
+     const  handleUpdateTask = () => {
+            const token = localStorage.getItem("token");
+
+            fetch(`http://localhost:5001/api/tasks/${editTaskId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                     Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify({
+                    title: title
+                })
+            })
+            .then((res) => {
+                if (!res.ok) {
+                    throw new Error("Failed to update task");
+                }
+                return res.json();
+            })
+            .then((data) => {
+                console.log(data);
+                setTasks((prevTasks) =>
+                prevTasks.map((item) =>
+                 item._id === editTaskId ? data.task : item)
+                );
+
+                setTitle("");
+                setEditTaskId(null);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        };
+
     useEffect(() => {
         const token = localStorage.getItem("token");
 
@@ -138,6 +182,8 @@ function Dashboard() {
             navigate("/login");
         });
 
+       
+
         // fetch tasks in dashboard
 
         fetch("http://localhost:5001/api/tasks", {
@@ -163,51 +209,123 @@ function Dashboard() {
     }, [navigate]);
 
     return (
-        <div>
-            <h1>Dashboard</h1>
+        <div className="dashboard">
 
-            {user && (
-                <div>
-                    <h2>Welcome to M-Task</h2>
-                    <p>Name: {user.name}</p>
-                    <p>Email: {user.email}</p>
-                    <p>Role: {user.role}</p>
+            {/*topnavbar*/}
+            <header className="dashboard-header">
+                <h2>M-Task</h2>
+
+                <div className="user-section">
+                    {user && (
+                        <div>
+                            <strong>{user.name}</strong>
+                            <p>{user.email}</p>
+                        </div>
+                    )}
+
+                    <button onClick={handleLogout}>Logout</button>
                 </div>
-            )}
+            </header>
+            
+            {/*dashboardbody*/}
+            <div className="dashboard-body">
+                
+                {/*sidenavbar*/}
+                <aside className="sidebar">
+                    <p>My-Task</p>
+                    <p>Important</p>
+                    <p>Completed</p>
 
-            <input
-            type="text"
-            placeholder="Enter your task title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            />
+                    <hr />
 
-            <button onClick={handleAddTask}>Add Task</button>
+                    <small>My Lists</small>
 
-            <h2>Your tasks</h2>
+                    <p>+ New List</p>
+                </aside>
 
-            {tasks.map((task) => (
-                <div key= {task._id}>
-                    <h3>{task.title}</h3>
+                {/*userdashboard-content*/}
+                <main className="dashboard-main">
 
-                    <p>
-                        status: {task.completed ? "Completed" : "Pending"}
-                    </p>
+                    <h1>My Tasks</h1>
 
-                    <button onClick={() => handleEditTask(task)}>
-                        Edit
-                    </button>
+                    <p>Stay organized with M-Task, get work things done.</p>
 
-                    <button onClick={() => handleCompleteTask(task)}>
-                        {task.completed ? "pending": "Complete"}
-                    </button>
+                    <div className="task-stats">
 
-                    <button onClick={() => handleDeleteTask(task)}>
-                        Delete
+                        <div className="stat-card">
+                            <span>Total</span>
+                            <strong>{totalTasks}</strong>
+                        </div>
+
+                        <div className="stat-card">
+                            <span>Pending</span>
+                            <strong>{pendingTasks}</strong>
+                        </div>
+
+                        <div className="stat-card">
+                            <span>Completed</span>
+                            <strong>{completedTasks}</strong>
+                        </div>
+
+                    </div>
+                    
+                <div className="task-input">
+                    <input 
+                    type="text"
+                    placeholder="Enter your task title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    />
+
+                    <button onClick={editTaskId !== null ? handleUpdateTask : handleAddTask}>
+                        {editTaskId !== null ? "Update Task" : "create Task"}
                     </button>
                 </div>
-            ))}
+
+                <div className="task-list">
+                    {tasks.map((task) => (
+                        <div className="task-item" key={task._id}>
+                            
+                            <div className="task-information">
+                                <button
+                                 className={`task-check ${task.completed ? "completed" : ""}`}
+                                 onClick={() => handleCompleteTask(task)}
+                                 >
+                                    {task.completed ? "" : ""}
+                                </button>
+
+                                <div>
+                                    <span className={task.completed ? "task-title completed-title" : "task-title"}>
+                                        {task.title}
+                                    </span>
+
+                                    <span className={task.completed ? "status completed-status" : "status pending-status"}>
+                                        {task.completed ? "Completed" : "Pending"}
+                                    </span>
+                                </div>
+                            </div>
+
+                            <div className="task-actions">
+                                <button onClick={() => handleEditTask(task)}>
+                                    Edit
+                                </button>
+
+                                <button onClick={() => handleDeleteTask(task)}>
+                                    Delete
+                                </button>
+                            </div>
+
+                        </div>
+                    ))}
+                </div>
+
+
+                </main> 
+
+            </div>
+
         </div>
+        
     );
  }
 
