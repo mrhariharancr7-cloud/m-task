@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { jsxs } from "react/jsx-runtime";
+import "../Login.css";
 
 function Register() {
   const [name, setName] = useState("");

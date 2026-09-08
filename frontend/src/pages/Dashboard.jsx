@@ -1,6 +1,6 @@
 import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../App.css";
+import "../Dashboard.css";
 
 function Dashboard() {
     const [user, setUser] = useState(null);
@@ -284,7 +284,7 @@ function Dashboard() {
 
                 <div className="task-list">
                     {tasks.map((task) => (
-                        <div className="task-item" key={task._id}>
+                        <div className="task-row" key={task._id}>
                             
                             <div className="task-information">
                                 <button
