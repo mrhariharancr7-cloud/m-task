@@ -134,7 +134,7 @@
 
 .dashboard-main > p {
   margin: 6px 0 14px;
-  color: #70809b;
+  color: #0F766E;
   font-size: 20px;
 }
 
@@ -485,5 +485,413 @@
 
   .task-actions button {
     width: 75px;
+  }
+}
+
+/*dashboard-delete-confirmation-overlay*/
+
+.delete-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.delete-modal {
+  width: 400px;
+  background: white;
+  border-radius: 10px;
+  padding: 25px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+.delete-modal h2 {
+  margin: 0 0 15px;
+  font-size: 24px;
+}
+
+.delete-modal p {
+  margin-bottom: 25px;
+  color: #555;
+}
+
+.delete-modal-actions {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+}
+
+.delete-confirm-button,
+.delete-cancel-button {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 7px;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.delete-confirm-button {
+  background: #dc2626;
+  color: white;
+}
+
+.delete-cancel-button {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+/*dashboard-important-button*/
+
+.important-button {
+  border: none;
+  background: transparent;
+  color: #1e293b;
+  font-size: 16px;
+  font-family: inherit;
+  font-weight: 400 !important;
+  padding: 12px 18px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.important-button:hover {
+  background-color: #fff7ed;
+  color: #d97706;
+  font-weight: 400 !important;
+}
+
+.important-button.active {
+  background-color: #fff3cd;
+  color: #d97706;
+  font-family: inherit;
+  font-size: 16px;
+  font-weight: 400 !important;
+}
+
+/*Create New List overlaymodel*/
+
+.customlist-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.customlist-overlay .modal {
+  width: 400px;
+  background: white;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.customlist-overlay .modal h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+.customlist-overlay .modal input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 7px;
+  font-size: 15px;
+  box-sizing: border-box;
+}
+
+.customlist-button-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.customlist-button-actions button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.customlist-button-actions button:first-child {
+  background: #0f8b87;
+  color: white;
+}
+
+.customlist-button-actions button:last-child {
+  background: #e5e7eb;
+  color: #111827;
+}
+
+/*cutomlist-tag*/
+
+.task-list-name {
+  display: inline-block;
+  margin-left: 8px;
+  padding: 5px 10px;
+  background: #f1f5f9;
+  color: #475569;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/*customlist-deleteconfirmation-overlay*/
+
+.custom-list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.custom-list-item p {
+  margin: 0;
+  cursor: pointer;
+}
+
+.custom-list-delete {
+  border: none;
+  background: transparent;
+  color: #ef4444;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.custom-list-delete:hover {
+  color: #dc2626;
+}
+
+/*custom-list-menu*/
+
+.custom-list-menu-container {
+  position: relative;
+}
+
+.custom-list-menu-button {
+  border: none;
+  background: transparent;
+  color: #64748b;
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 6px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.custom-list-menu-button:hover {
+  background: #eef9f8;
+  color: #087f78;
+}
+
+.custom-list-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  right: 0;
+  z-index: 100;
+  min-width: 130px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  background: white;
+  border: 1px solid #dfe8e8;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+}
+
+.custom-list-menu button {
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #101d3a;
+  cursor: pointer;
+}
+
+.custom-list-menu button:first-child:hover {
+  background: #eef9f8;
+  color: #087f78;
+}
+
+.custom-list-menu button:last-child {
+  color: #ef4444;
+}
+
+.custom-list-menu button:last-child:hover {
+  background: #fee2e2;
+  color: #dc2626;
+}
+
+
+.list-delete-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+
+.list-delete-modal {
+  width: 400px;
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+}
+
+.list-delete-modal h2 {
+  margin: 0 0 15px;
+  color: #14213d;
+}
+
+.list-delete-modal p {
+  margin-bottom: 25px;
+  color: #555;
+}
+
+
+.list-delete-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.list-delete-cancel-button,
+.list-delete-confirm-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+.list-delete-cancel-button {
+  background: #eef2f7;
+  color: #333;
+}
+
+.list-delete-cancel-button:hover {
+  background: #e0e5eb;
+}
+
+.list-delete-confirm-button {
+  background: #ef4444;
+  color: white;
+}
+
+.list-delete-confirm-button:hover {
+  background: #dc2626;
+}
+
+/*customlist-rename-overlay*/
+
+.list-rename-model-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.list-rename-modal {
+  width: 380px;
+  max-width: 100%;
+  background: white;
+  padding: 30px;
+  border-radius: 14px;
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+}
+
+.list-rename-modal h2 {
+  margin: 0 0 20px;
+  color: #14213d;
+  font-size: 24px;
+}
+
+.list-rename-modal input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #dbe4e8;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #101d3a;
+  box-sizing: border-box;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.list-rename-modal input:focus {
+  border-color: #087f78;
+  box-shadow: 0 0 0 3px rgba(8, 127, 120, 0.12);
+}
+
+.list-rename-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 22px;
+}
+
+.list-rename-modal-actions button {
+  padding: 10px 22px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.list-rename-modal-actions button:first-child {
+  background: #eef2f7;
+  color: #333;
+}
+
+.list-rename-modal-actions button:first-child:hover {
+  background: #e0e5eb;
+}
+
+.list-rename-modal-actions button:last-child {
+  background: #087f78;
+  color: white;
+}
+
+.list-rename-modal-actions button:last-child:hover {
+  background: #066e68;
+  transform: translateY(-1px);
+}
+
+@media (max-width: 480px) {
+  .list-rename-modal {
+    padding: 22px;
   }
 }

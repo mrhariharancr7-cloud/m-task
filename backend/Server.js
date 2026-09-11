@@ -94,10 +94,13 @@ app.get("/api/profile", authMiddleware, async (req, res) => {
 });
 
 app.post("/api/tasks", authMiddleware, async (req, res) => {
-    const { title } = req.body;
+    const { title, important, list, dueDate } = req.body;
 
     const task = new Task({
         title,
+        important: important || false,
+        list,
+        dueDate,
         user: req.user.userId
     });
 
@@ -110,9 +113,25 @@ app.post("/api/tasks", authMiddleware, async (req, res) => {
 });
 
 app.get("/api/tasks", authMiddleware, async (req, res) => {
-    const tasks = await Task.find({
-        user:req.user.userId
-    });
+    const { list, important, completed } = req.query;
+
+    const filter = {
+        user: req.user.userId
+    };
+
+    if (list) {
+        filter.list = list;
+    }
+
+    if (important === "true") {
+        filter.important = true;
+    }
+
+    if (completed === "true") {
+        filter.completed = true;
+    }
+
+    const tasks = await Task.find(filter);
 
     res.status(200).json({
         tasks
@@ -121,7 +140,7 @@ app.get("/api/tasks", authMiddleware, async (req, res) => {
 
 app.put("/api/tasks/:id", authMiddleware, async (req, res) => {
     const { id } = req.params;
-    const { title,completed } = req.body;
+    const { title, completed, important, list, dueDate} = req.body;
 
     const task = await Task.findOneAndUpdate(
         {
@@ -129,7 +148,7 @@ app.put("/api/tasks/:id", authMiddleware, async (req, res) => {
             user: req.user.userId
         },
         {
-            title,completed
+            title, completed , important, list, dueDate,
         },
         {new: true}
     );
