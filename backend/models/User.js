@@ -17,6 +17,31 @@ const userSchema = new mongoose.Schema({
     role: {
         type: String,
         default: "user"
+    },
+
+    startOfWeek: {
+        type: String,
+        default:"Monday"
+    },
+
+    showImportant: {
+        type: Boolean,
+        default: true
+    },
+
+    showCompleted: {
+        type: Boolean,
+        default: true
+    },
+
+    resetOtp: {
+        type: String,
+        default: null
+    },
+
+    resetOtpExpires: {
+        type: Date,
+        default: null
     }
 });
 

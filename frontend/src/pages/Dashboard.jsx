@@ -1,6 +1,7 @@
 import { useEffect,useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Dashboard.css";
+import { Link } from "react-router-dom";
 
 function Dashboard() {
     const [user, setUser] = useState(null);
@@ -411,6 +412,7 @@ function Dashboard() {
                         </div>
                     )}
 
+
                     <button onClick={handleLogout}>Logout</button>
                 </div>
             </header>
@@ -424,13 +426,17 @@ function Dashboard() {
                         My Task
                     </p>
 
-                    <p onClick={() => setActiveTab("important")}>
-                        Important
-                    </p>
+                    {user?.showImportant && (
+                            <p onClick={() => setActiveTab("important")}>
+                                Important
+                            </p>
+                    )}
 
-                    <p onClick={() => setActiveTab("completed")}>
-                        Completed
-                    </p>
+                    {user?.showCompleted && (
+                        <p onClick={() => setActiveTab("completed")}>
+                            Completed
+                        </p>
+                    )}
 
                     <hr />
 
@@ -480,6 +486,10 @@ function Dashboard() {
                         </div>
                         
                     ))}
+
+                     <Link 
+                          to="/settings"
+                          className="block ml-9 mt-3 text-lg font-medium text-teal-700 no-underline hover:text-teal-900">Settings</Link>
 
                     {showListModal && (
                         <div className="customlist-overlay">

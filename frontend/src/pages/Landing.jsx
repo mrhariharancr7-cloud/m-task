@@ -144,7 +144,7 @@ function Landing() {
 
                     <div className="contact-item">
                         <span>General enquiries</span>
-                        <p>support.m-task@gmail.com</p>
+                        <p>support.mtask@gmail.com</p>
                     </div>
 
                     <div className="contact-item">
@@ -199,7 +199,7 @@ function Landing() {
 
                 <div className="footer-section">
                     <h3>Contact</h3>
-                    <p>support.m-task@gmail.com</p>
+                    <p>support.mtask@gmail.com</p>
                     <p>Mon - Fri, 10:00 AM - 6:00 pm</p>
                 </div>
 

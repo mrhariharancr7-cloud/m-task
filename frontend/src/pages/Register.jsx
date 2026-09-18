@@ -6,6 +6,7 @@ function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [registermessage,setregisterMessage] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -23,6 +24,7 @@ function Register() {
     });
 
     const data = await response.json();
+    setregisterMessage(data.message);
 
     console.log(data);
     };
@@ -70,9 +72,11 @@ function Register() {
         <br />
 
         <button className="login-button"
-         onClick={handleRegister}
-         >
-          Register</button>
+         onClick={handleRegister}>Register</button>
+
+         {registermessage && (
+          <p className="mt-3 text-center text-sm font-medium text-teal-700">{registermessage}</p>
+         )}
 
         <p>
           Already have an account?{" "}
