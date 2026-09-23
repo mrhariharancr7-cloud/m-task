@@ -31,7 +31,12 @@ function Login() {
         localStorage.setItem("token", data.token);
         localStorage.setItem("role" , data.role);
 
-        navigate("/dashboard");
+        if (data.role === "superadmin") {
+            navigate("/superadmin");
+        } else {
+            navigate("/dashboard");
+        }
+        
         console.log("Login Successful");
         console.log(data);
        } else {

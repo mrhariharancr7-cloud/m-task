@@ -19,6 +19,11 @@ const userSchema = new mongoose.Schema({
         default: "user"
     },
 
+    isBlocked: {
+        type: Boolean,
+        default: false
+    },
+
     startOfWeek: {
         type: String,
         default:"Monday"

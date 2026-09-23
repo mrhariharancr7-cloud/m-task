@@ -13,6 +13,37 @@ function Dashboard() {
     const totalTasks = tasks.length;
     const completedTasks = tasks.filter((task) => task.completed).length;
     const pendingTasks = tasks.filter((task) => !task.completed).length;
+    const importantTasks = tasks.filter((task) => task.important).length;
+
+    const overdueTasks = tasks.filter((task) => {
+        if (task.completed || !task.dueDate) {
+            return false;
+        }
+
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const dueDate = new Date(task.dueDate);
+        dueDate.setHours(0, 0, 0, 0);
+
+        return dueDate <= today;
+
+    }).length;
+
+    const isTaskOverdue = (task) => {
+        if (task.completed || !task.dueDate) {
+            return false;
+        }
+        
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
+
+        const dueDate = new Date(task.dueDate);
+        dueDate.setHours(0, 0, 0, 0);
+
+        return dueDate <= today;
+    }
+
     const navigate = useNavigate();
     const [deleteTask, setDeleteTask] = useState(null);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -591,6 +622,16 @@ function Dashboard() {
                             <strong>{completedTasks}</strong>
                         </div>
 
+                        <div className="stat-card">
+                            <span>Important</span>
+                            <strong>{importantTasks}</strong>
+                        </div>
+
+                        <div className="stat-card">
+                            <span>Overdue</span>
+                            <strong>{overdueTasks}</strong>
+                        </div>
+
                     </div>
                     
                 <div className="task-input">
@@ -634,9 +675,11 @@ function Dashboard() {
                                     </span>
 
                                     {task.dueDate && (
-                                        <span className="due-date">
-                                            Due: {new Date(task.dueDate).toLocaleDateString()}
-                                        </span>
+                                        <span className={`rounded-md px-3 py-1 text-sm font-medium ${isTaskOverdue(task)
+                                            ? "bg-red-100 text-red-700" : "bg-gray-100 text-gray-700" }`}>
+                                                {isTaskOverdue(task) ? "Overdue:" : "Due:"}{" "}
+                                                {new Date(task.dueDate).toLocaleDateString()}
+                                            </span>
                                     )}
 
                                     {["My-Day", "important", "completed"].includes(activeTab) && (
