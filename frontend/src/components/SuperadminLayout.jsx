@@ -33,10 +33,25 @@ function SuperadminLayout({ children }) {
         fetchProfile();
     }, []);
 
-    const handleLogout =() => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("role");
-        navigate("/login");
+    const handleLogout = async () => {
+       const token = localStorage.getItem("token");
+
+       try {
+        await fetch("http://localhost:5001/api/logout", {
+            method: "POST",
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        });
+
+       } catch (error) {
+
+        console.error("Error recording logout:", error);
+
+       }
+       localStorage.removeItem("token");
+       localStorage.removeItem("role");
+       navigate("/login");
     };
 
     return (
@@ -82,19 +97,39 @@ function SuperadminLayout({ children }) {
 
                         <button 
                         onClick={() => navigate("/superadmin")}
-                        className="block w-full text-left text-lg text-slate-900">Dashboard</button>
+                        className="block w-full text-left text-lg text-slate-900 hover:bg-emerald-50 px-2 py-2 rounded-md transition-all duration-200">
+                            Dashboard
+                        </button>
 
                         <button 
                         onClick={() => navigate("/superadmin/users")}
-                        className="block w-full text-left text-lg text-slate-900">Users</button>
+                        className="block w-full text-left text-lg text-slate-900 hover:bg-emerald-50 px-2 py-2 rounded-md transition-all duration-200">
+                            Users
+                        </button>
 
                         <button 
                         onClick={() => navigate("/superadmin/tasks")}
-                        className="block w-full text-left text-lg text-slate-900">Tasks</button>
+                        className="block w-full text-left text-lg text-slate-900 hover:bg-emerald-50 px-2 py-2 rounded-md transition-all duration-200">
+                            Tasks
+                        </button>
+
+                        <button
+                        onClick={() => navigate("/superadmin/reports")}
+                        className="block w-full text-left text-lg text-slate-900 hover:bg-emerald-50 px-2 py-2 rounded-md transition-all duration-200">
+                            Reports
+                        </button>
+
+                        <button
+                        onClick={() => navigate("/superadmin/contact-enqueries")}
+                        className="block w-full text-left text-lg text-slate-900 hover:bg-emerald-50 px-2 py-2 rounded-md transition-all duration-200">
+                            Contact Queries
+                        </button>
 
                         <button
                         onClick={() => navigate("/superadmin/settings")}
-                        className="block w-full text-left text-lg text-slate-900">Settings</button>
+                        className="block w-full text-left text-lg text-slate-900 hover:bg-emerald-50 px-2 py-2 rounded-md transition-all duration-200">
+                            Settings
+                        </button>
 
                     </nav>
 

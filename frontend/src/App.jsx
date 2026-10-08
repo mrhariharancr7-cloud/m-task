@@ -11,7 +11,10 @@ import SuperadminDashboard from "./pages/SuperadminDashboard";
 import SuperadminUsers from "./pages/SuperadminUsers";
 import SuperadminTasks from "./pages/SuperadminTasks";
 import SuperadminSettings from "./pages/SuperadminSettings";
-
+import SuperadminReports from "./pages/SuperadminReports";
+import ContactUs from "./pages/ContactUs";
+import SuperadminContactQueries from "./pages/SuperadminContactQueries";
+import SuperadminEnquiryDetails from "./pages/SuperadminEnquiryDetails";
 
 function App() {
     return (
@@ -20,6 +23,7 @@ function App() {
                 <Route path="/" element={<Landing />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
+                <Route path="/contact" element={<ContactUs />} />
                 <Route path="/dashboard" element={<Dashboard/>} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/forgot-password" element={<ForgotPassword />} />
@@ -27,6 +31,9 @@ function App() {
                 <Route path="/superadmin/users" element={<SuperadminUsers />} />
                 <Route path="/superadmin/tasks" element={<SuperadminTasks />} />
                 <Route path="/superadmin/settings" element={<SuperadminSettings />} />
+                <Route path="/superadmin/reports" element={<SuperadminReports />} />
+                <Route path="/superadmin/contact-enqueries" element={<SuperadminContactQueries />} />
+                <Route path="/superadmin/contact-enqueries/:id" element={<SuperadminEnquiryDetails />} />
             </Routes>
         </BrowserRouter>
     );

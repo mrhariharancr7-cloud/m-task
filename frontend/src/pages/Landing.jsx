@@ -1,22 +1,15 @@
 import {Link} from "react-router-dom";
 import "./Landing.css";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 
 function Landing() {
     return (
         <div className="landing-page">
 
+            <Header />
 
-            <nav className="nav-bar">
-                <h2>M-Task</h2>
-
-            <div className="nav-links">
-                <a href="#features">Features</a>
-                <a href="#contact">Contact</a>
-                <Link to="/login">Login</Link>
-                <Link to="/register">Register</Link>
-            </div>
-        </nav>
 
         <section className="content">
 
@@ -132,11 +125,11 @@ function Landing() {
                         need help, our M-Task team is here.
                     </p>
 
-                    <a href="mailto:support.m-task@gmail.com"
+                    <Link to="/contact"
                     className="contact-button"
                     >
                         Contact Us
-                    </a>
+                    </Link>
 
                 </div>
 
@@ -170,51 +163,7 @@ function Landing() {
 
         </section>
 
-       
-
-        <footer className="footer">
-            <div className="footer-content">
-
-
-                <div className="footer-brand">
-                    <h2>M-Task</h2>
-                    <p>
-                        M-Task helps you to manage your daily task easily
-                        and stay organized.
-                    </p>
-                </div>
-
-                <div className="footer-section">
-                    <h3>Product</h3>
-                    <a href="#features">Features</a>
-                    <a href="#tasks">Tasks</a>
-                    <Link to="/login">Login</Link>
-                </div>
-
-                <div className="footer-section">
-                    <h3>Company</h3>
-                    <a href="#about">About</a>
-                    <a href="#contact">Contact</a>
-                </div>
-
-                <div className="footer-section">
-                    <h3>Contact</h3>
-                    <p>support.mtask@gmail.com</p>
-                    <p>Mon - Fri, 10:00 AM - 6:00 pm</p>
-                </div>
-
-
-            </div>
-
-            <div className="footer-bottom">
-                <p>M-Task. All rights reserved.</p>
-                <div>
-                    <a href="#privacy">Privacy Policy</a>
-                    <a href="#terms">Terms and Conditions</a>
-                </div>
-            </div>
-        </footer>
-
+        <Footer />
 
         </div>
         
