@@ -32,6 +32,12 @@ function Footer() {
                     <Link to="/features"
                     className="text-sm text-slate-600 hover:text-[#E78300] transition-colors">Features</Link>
 
+                    <Link to="/contact"
+                    className="text-sm text-slate-600 hover:text-[#E78300] transition-colors">Contact</Link>
+
+                    <Link to="/about"
+                    className="text-sm text-slate-600 hover:text-[#E78300] transition-colors">About</Link>
+
                     <Link to="/login"
                     className="text-sm text-slate-600 hover:text-[#E78300] transition-colors">Login</Link>
 

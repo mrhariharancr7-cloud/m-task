@@ -9,6 +9,7 @@ function Header() {
     const isHome = location.pathname === "/" && location.hash !== "#features";
     const isFeatures = location.pathname === "/features";
     const isContact = location.pathname === "/contact";
+    const isAbout = location.pathname === "/about";
 
     const navLinkClass = (isActive) =>
         `px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${
@@ -44,17 +45,15 @@ function Header() {
 
                 <Link 
                 to="/features"
-                className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${
-                    location.pathname === "/features"
-                    ? "bg-[#FFF4E5] text-[#E78300]"
-                    : "text-[#071A3D] hover:text-[#E78300]"}`}>Features</Link>
+                className={navLinkClass(isFeatures)}>Features</Link>
 
                 <Link 
                 to="/contact"
-                className={`px-4 py-2 rounded-lg font-semibold transition-all duration-200 ${
-                    isContact
-                    ? "bg-[#FFF4E5] text-[#E78300]"
-                    : "text-[#071A3D] hover:text-[#E78300]"}`}>Contact</Link>
+                className={navLinkClass(isContact)}>Contact</Link>
+                
+                <Link 
+                to="/about"
+                className={navLinkClass(isAbout)}>About</Link>
 
             </div>
 
@@ -97,11 +96,15 @@ function Header() {
 
                     <Link to="/features"
                     onClick={() => setMenuOpen(false)}
-                    className={navLinkClass(location.pathname === "/features")}>Features</Link>
+                    className={navLinkClass(isFeatures)}>Features</Link>
 
                     <Link to="/contact"
                     onClick={() => setMenuOpen(false)}
                     className={navLinkClass(isContact)}>Contact</Link>
+
+                    <Link to="/about"
+                    onClick={() => setMenuOpen(false)}
+                    className={navLinkClass(isAbout)}>About</Link>
 
                     <div className="border-t border-slate-200 my-2" />
 

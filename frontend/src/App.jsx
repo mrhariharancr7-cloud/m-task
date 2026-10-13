@@ -16,6 +16,7 @@ import ContactUs from "./pages/ContactUs";
 import SuperadminContactQueries from "./pages/SuperadminContactQueries";
 import SuperadminEnquiryDetails from "./pages/SuperadminEnquiryDetails";
 import Feature from "./pages/Feature";
+import About from "./pages/About";
 
 function App() {
     return (
@@ -36,6 +37,7 @@ function App() {
                 <Route path="/superadmin/contact-enqueries" element={<SuperadminContactQueries />} />
                 <Route path="/superadmin/contact-enqueries/:id" element={<SuperadminEnquiryDetails />} />
                 <Route path="/features" element={<Feature />} />
+                <Route path="/about" element={<About />} />
             </Routes>
         </BrowserRouter>
     );
