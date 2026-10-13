@@ -18,3 +18,87 @@ body {
     background: white;
     color: #333;
 }
+
+/*feature-cards-animation*/
+.features-slider {
+    width: 100%;
+    overflow: hidden;
+}
+
+.features-track {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    animation: features-slide 30s linear infinite;
+    will-change: transform;
+}
+
+.features-group {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    gap: 20px;
+    padding-right: 20px;
+}
+
+.features-slider:hover .features-track {
+    animation-play-state: paused;
+}
+
+@keyframes features-slide {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .features-track {
+        animation: none;
+    }
+}
+
+/*usecases-cards animation*/
+.use-cases-slider {
+    width: 100%;
+    overflow: hidden;
+}
+
+.use-cases-track {
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
+    animation: features-slide 30s linear infinite;
+    will-change: transform;
+}
+
+.use-cases-group {
+    display: flex;
+    flex-shrink: 0;
+    flex-wrap: nowrap;
+    gap: 20px;
+    padding-right: 20px;
+}
+
+.use-cases-slider:hover .use-cases-track {
+    animation-play-state: paused;
+}
+
+@keyframes use-cases-slide {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .use-cases-track {
+        animation: none;
+    }
+}

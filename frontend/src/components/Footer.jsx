@@ -1,77 +1,89 @@
-
+import { Link } from "react-router-dom";
 
 function Footer() {
+    return (
+        <footer className="bg-[#FFF7ED] text-[#172033] border-t border-slate-200 px-4 sm:px-6 lg:px-[8%] pt-12 sm:pt-16 pb-8">
 
-    return(
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
 
-    <footer className="bg-[#111827] text-white px-[8%] pt-12 pb-6">
+                <div>
+                    <Link to="/" className="flex items-center gap-2 mb-4">
+                    {/*logo-icon*/}
+                    <div className="w-7 h-7 bg-[#E78300] rounded-lg flex items-center justify-center shadow-sm">
+                        <span className="text-white text-lg font-bold">✓</span>
+                    </div>
 
-        <div className="grid grid-cols-4 gap-10">
+                    {/*logo-name*/}
+                    <h2 className="text-xl font-bold text-[#E78300]">M-Task</h2>
 
-            <div>
-                <h2 className="text-2xl font-medium mb-5">M-Task</h2>
+                    </Link>
 
-                <p className="text-[#94a3b8] leading-7 max-w-xs">
-                    M-Task helps you to manage your daily
-                    task easily and stay organized.
+                    <p className="text-sm leading-6 text-slate-600 max-w-xs">
+                        M-Task helps you manage your daily tasks easily
+                        and stay organized.
+                    </p>
+                </div>
+
+                <div className="flex flex-col items-start gap-4">
+                    <h3 className="text-sm font-bold text-[#071A3D] mb-1">
+                        Product
+                    </h3>
+
+                    <Link to="/features"
+                    className="text-sm text-slate-600 hover:text-[#E78300] transition-colors">Features</Link>
+
+                    <Link to="/login"
+                    className="text-sm text-slate-600 hover:text-[#E78300] transition-colors">Login</Link>
+
+                </div>
+
+                <div className="flex flex-col items-start gap-4">
+                    <h3 className="text-sm font-bold text-[#071A3D] mb-1">Legal</h3>
+
+                    <a href="#privacy"
+                    className="text-sm text-slate-600 hover:text-[#E78300] transition-colors">Privacy Policy</a>
+
+                    <a href="#terms"
+                    className="text-sm text-slate-600 hover:text-[#E78300] transition-colors">Terms &amp; Conditions</a>
+                </div>
+
+                <div className="flex flex-col items-start gap-4">
+                    <h3 className="text-sm font-bold text-[#071A3D] mb-1">Contact</h3>
+
+                    <a href="mailto:support.mtask@gmail.com"
+                    className="text-sm text-slate-600 hover:text-[#E78300] transition-colors break-all">
+                        support.mtask@gmail.com
+                    </a>
+
+                    <a href="tel:+918220952877"
+                    className="text-sm text-slate-600 hover:text-[#E78300] transition-colors break-all">
+                        +91 8220952877
+                    </a>
+
+                    <p className="text-sm text-slate-600">
+                        Mon - Fri, 10:00 AM - 6:00 PM
+                    </p>
+                </div>
+
+            </div>
+
+            <div className="border-t border-slate-200 mt-12 pt-7 flex flex-col md:flex-row justify-between items-start md:items-center gap-5">
+
+                <p className="text-sm text-slate-500">
+                    © {new Date().getFullYear()} M-Task. All rights reserved.
                 </p>
-            </div>
 
-            <div className="flex flex-col gap-4">
-                <h3 className="text-base font-medium text-white">Product</h3>
+                <div className="flex flex-wrap gap-6">
+                    <a href="#privacy"
+                    className="text-sm text-slate-500 hover:text-[#E78300] transition-colors">Privacy Policy</a>
 
-                <a href="/#features"
-                className="text-[#94a3b8]">Features</a>
-
-                <a href="/#features"
-                className="text-[#94a3b8]">Tasks</a>
-
-                <a href="/login"
-                className="text-[#94a3b8]">Login</a>
-            </div>
-
-            <div className="flex flex-col gap-4">
-                <h3 className="text-base font-medium text-white">Company</h3>
-
-                <a href="/"
-                className="text-[#94a3b8]">About</a>
-
-                <a href="/contact"
-                className="text-[#94a3b8]">Contact</a>
+                    <a href="#terms"
+                    className="text-sm text-slate-500 hover:text-[#E78300] transition-colors">Terms &amp; Conditions</a>
+                </div>
 
             </div>
 
-            <div>
-                <h3 className="text-base font-medium text-white mb-4">Contact</h3>
-
-                <p className="text-[#94a3b8] mb-4">support.mtask@gmail.com</p>
-
-                <p className="text-[#94a3b8]">Mon - Fri, 10:00 AM - 6:00 pm</p>
-            </div>
-
-        </div>
-
-        {/*footerbottom*/}
-
-        <div className="border-t border-[#334155] mt-10 pt-6 flex justify-between">
-
-            <p className="text-[#94a3b8]">
-                M-Task. All rights reserved.
-            </p>
-
-            <div className="flex gap-6">
-
-                <a href="#privacy"
-                className="text-[#94a3b8]">Privacy Policy</a>
-
-                <a href="#terms"
-                className="text-[#94a3b8]">Terms and Conditions</a>
-            </div>
-
-        </div>
-
-    </footer>
-
+        </footer>
     );
 }
 
