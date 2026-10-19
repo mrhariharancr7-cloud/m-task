@@ -41,59 +41,91 @@ function SuperadminDashboard() {
 
 return(
     <SuperadminLayout>
-        <div>
+        <div className="mx-auto max-w-7xl">
 
-            <h2 className="text-4xl font-bold text-slate-900">Superadmin Dashboard</h2>
+            <div className="mb-8">
+                <h2 className="text-3xl font-bold tracking-tight text-[#071A3D] sm:text-4xl">Superadmin Dashboard</h2>
 
-                <p className="mt-2 text-lg text-teal-700">Overview of users and tasks in M-Task</p>
+                <p className="mt-3 text-base leading-7 text-orange-500 sm:text-lg">
+                    Overview of users and tasks in M-Task.
+                </p>
+            </div>
 
-                {/*Statistics-Cards*/}
-                <div className="grid grid-cols-3 gap-6 mt-8">
+            {/*statistics-cards*/}
+            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-3 xl:gap-6">
 
-                    {/*Total-Users*/}
-                    <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 min-h-40">
+                <div className="group relative overflow-hidden rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all
+                duration-300 hover:-translate-y-1 hover:border-[#E78300] hover:shadow-lg sm:p-8">
 
-                        <p className="text-sm text-slate-500">Total Users</p>
-                        <h3 className="text-4xl font-bold text-slate-900 mt-5">{stats.totalUsers}</h3>
-                    </div>
+                    <div className="absolute left-0 top-0 h-1 w-full bg-[#E78300]" />
 
-                    {/*Total-Tasks*/}
-                    <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 min-h-40">
+                    <p className="text-sm font-medium text-slate-500">Total Users</p>
 
-                        <p className="text-sm text-slate-500">Total Tasks</p>
-                        <h3 className="text-4xl font-bold text-slate-900 mt-5">{stats.totalTasks}</h3>
-                    </div>
+                    <h3 className="mt-4 text-4xl font-bold text-[#071A3D]">{stats.totalUsers}</h3>
 
-                    {/*Completed*/}
-                    <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 min-h-40">
-
-                        <p className="text-sm text-slate-500">Completed</p>
-                        <h3 className="text-4xl font-bold text-slate-900 mt-5">{stats.completedTasks}</h3>
-                    </div>
-
-                    {/*Pending*/}
-                    <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 min-h-40">
-
-                        <p className="text-sm text-slate-500">Pending</p>
-                        <h3 className="text-4xl font-bold text-slate-900 mt-5">{stats.pendingTasks}</h3>
-                    </div>
-
-                    {/*Overdue*/}
-                    <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 min-h-40">
-
-                        <p className="text-sm text-slate-500">Overdue</p>
-                        <h3 className="text-4xl font-bold text-slate-900 mt-5">{stats.overdueTasks}</h3>
-                    </div>
-
-                    {/* Important */}
-                    <div className="bg-white rounded-2xl p-8 shadow-sm border border-slate-200 min-h-40">
-
-                        <p className="text-sm text-slate-500">Important</p>
-                        <h3 className="text-4xl font-bold text-slate-900 mt-5">{stats.importantTasks}</h3>
-                    </div>
-
+                    <p className="mt-3 text-sm text-slate-500">Registered users on M-Task</p>
                 </div>
 
+                <div className="group relative overflow-hidden rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all
+                duration-300 hover:-translate-y-1 hover:border-[#E78300] hover:shadow-lg sm:p-8">
+
+                    <div className="absolute left-0 top-0 h-1 w-full bg-[#E78300]" />
+
+                    <p className="text-sm font-medium text-slate-500">Total Tasks</p>
+
+                    <h3 className="mt-4 text-4xl font-bold text-[#071A3D]">{stats.totalTasks}</h3>
+
+                    <p className="mt-3 text-sm text-slate-500">Tasks created on M-Task</p>
+                </div>
+
+                <div className="group relative overflow-hidden rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all
+                duration-300 hover:-translate-y-1 hover:border-[#E78300] hover:shadow-lg sm:p-8">
+
+                    <div className="absolute left-0 top-0 h-1 w-full bg-[#E78300]" />
+
+                    <p className="text-sm font-medium text-slate-500">Completed Tasks</p>
+
+                    <h3 className="mt-4 text-4xl font-bold text-[#071A3D]">{stats.completedTasks}</h3>
+
+                    <p className="mt-3 text-sm text-slate-500">Tasks marked as completed</p>
+                </div>
+
+                <div className="group relative overflow-hidden rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all
+                duration-300 hover:-translate-y-1 hover:border-[#E78300] hover:shadow-lg sm:p-8">
+
+                    <div className="absolute left-0 top-0 h-1 w-full bg-[#E78300]" />
+
+                    <p className="text-sm font-medium text-slate-500">Pending Tasks</p>
+
+                    <h3 className="mt-4 text-4xl font-bold text-[#071A3D]">{stats.pendingTasks}</h3>
+
+                    <p className="mt-3 text-sm text-slate-500">Tasks waiting to be completed</p>
+                </div>
+
+                <div className="group relative overflow-hidden rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all
+                duration-300 hover:-translate-y-1 hover:border-[#E78300] hover:shadow-lg sm:p-8">
+
+                    <div className="absolute left-0 top-0 h-1 w-full bg-[#E78300]" />
+
+                    <p className="text-sm font-medium text-slate-500">Overdue Tasks</p>
+
+                    <h3 className="mt-4 text-4xl font-bold text-[#071A3D]">{stats.overdueTasks}</h3>
+
+                    <p className="mt-3 text-sm text-slate-500">Tasks past their due date</p>
+                </div>
+
+                <div className="group relative overflow-hidden rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all
+                duration-300 hover:-translate-y-1 hover:border-[#E78300] hover:shadow-lg sm:p-8">
+
+                    <div className="absolute left-0 top-0 h-1 w-full bg-[#E78300]" />
+
+                    <p className="text-sm font-medium text-slate-500">Important Tasks</p>
+
+                    <h3 className="mt-4 text-4xl font-bold text-[#071A3D]">{stats.importantTasks}</h3>
+
+                    <p className="mt-3 text-sm text-slate-500">Tasks marked as important</p>
+                </div>
+            </div>
         </div>
     </SuperadminLayout>
   );

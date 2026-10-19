@@ -17,6 +17,12 @@ import SuperadminContactQueries from "./pages/SuperadminContactQueries";
 import SuperadminEnquiryDetails from "./pages/SuperadminEnquiryDetails";
 import Feature from "./pages/Feature";
 import About from "./pages/About";
+import DashboardLayout from "./components/DashboardLayout";
+import { DashboardProvider } from "./context/DashboardContext";
+import MyTasks from "./pages/dashboard/MyTasks";
+import ImportantTasks from "./pages/dashboard/ImportantTasks";
+import CompletedTasks from "./pages/dashboard/CompletedTasks";
+import CustomListTasks from "./pages/dashboard/CustomListTasks";
 
 function App() {
     return (
@@ -26,16 +32,23 @@ function App() {
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/contact" element={<ContactUs />} />
-                <Route path="/dashboard" element={<Dashboard/>} />
+
+                <Route path="/dashboard" element={<DashboardProvider> <DashboardLayout /> </DashboardProvider>}>
+                <Route index element={<MyTasks />} />
+                <Route path="important" element={<ImportantTasks />} />
+                <Route path="completed" element={<CompletedTasks />} />
+                <Route path="list/:listName" element={<CustomListTasks />} />
+                </Route>
                 <Route path="/settings" element={<Settings />} />
+                
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/superadmin" element={<SuperadminDashboard />} />
                 <Route path="/superadmin/users" element={<SuperadminUsers />} />
                 <Route path="/superadmin/tasks" element={<SuperadminTasks />} />
                 <Route path="/superadmin/settings" element={<SuperadminSettings />} />
                 <Route path="/superadmin/reports" element={<SuperadminReports />} />
-                <Route path="/superadmin/contact-enqueries" element={<SuperadminContactQueries />} />
-                <Route path="/superadmin/contact-enqueries/:id" element={<SuperadminEnquiryDetails />} />
+                <Route path="/superadmin/contact-enquiries" element={<SuperadminContactQueries />} />
+                <Route path="/superadmin/contact-enquiries/:id" element={<SuperadminEnquiryDetails />} />
                 <Route path="/features" element={<Feature />} />
                 <Route path="/about" element={<About />} />
             </Routes>

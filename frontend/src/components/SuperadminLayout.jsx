@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 function SuperadminLayout({ children }) {
 
     const navigate = useNavigate();
+    const location = useLocation();
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -58,28 +59,50 @@ function SuperadminLayout({ children }) {
         <div className="min-h-screen bg-[#f2fbfa]">
 
             {/*header*/}
-            <header className="h-20 bg-white flex items-center justify-between px-10">
+            <header className="sticky top-0 z-40 flex min-h-20 items-center justify-between border-b border-slate-200 bg-white px-4 py-3 shadow-sm sm:px-6 lg:px-8">
 
-                <h1 className="text-3xl font-bold text-teal-700">M-Task</h1>
+                <div className="flex items-center gap-3">
 
-                <div className="flex items-center gap-8">
+                    {/*logo*/}
+                    <div className="flex items-center gap-2">
 
-                <div className="text-right">
-                    <p className="text-base font-bold text-slate-900">
-                        {user?.name || "Superadmin"}
-                    </p>
+                        {/*logo-icon*/}
+                        <div className="w-7 h-7 bg-[#E78300] rounded-lg flex items-center justify-center shadow-sm">
+                            <span className="text-white text-lg font-bold">✓</span>
+                        </div>
 
-                    <p className="text-sm text-slate-500">
-                        {user?.email || ""}
-                    </p>
+                        {/*logo-name*/}
+                        <h1 className="text-2xl font-bold text-[#E78300]">M-Task</h1>
+                    </div>
 
                 </div>
 
-                <button 
-                onClick={handleLogout}
-                className="bg-teal-600 text-white px-6 py-3 rounded-xl font-medium hover:bg-teal-700">Logout</button>
+                <div className="flex items-center gap-3 sm:gap-5">
 
-            </div>
+                    <div className="min-w-0 text-right">
+                        <p className="truncate text-sm font-bold text-[#071A3D] sm:text-base">
+                            {user?.name || "superadmin"}
+                        </p>
+
+                        <p className="max-w-36 truncate text-xs text-slate-500 sm:max-w-none sm:text-sm">
+                            {user?.email || ""}
+                        </p>
+
+                        <p className="text-xs font-semibold tracking-wide text-[#E78300]">
+                            SUPERADMIN
+                        </p>
+                    </div>
+
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-orange-200 bg-[#FFF4D6] text-sm font-bold uppercase text-[#E78300] sm:h-11 sm:w-11">
+                        {(user?.name || "superadmin")
+                        .trim()
+                        .split(/\s+/)
+                        .map((part) => part[0])
+                        .join("")
+                        .slice(0, 2)}
+                    </div>
+
+                </div>
 
             </header>
 
@@ -87,56 +110,75 @@ function SuperadminLayout({ children }) {
             <div className="flex">
 
                 {/*sidenavbar*/}
-                <aside className="w-64 min-h-[calc(100vh-5rem)] bg-white px-8 py-10">
+                <aside className="fixed bottom-0 left-0 top-20 z-30 flex w-64 flex-col border-r border-slate-200 bg-white px-3 py-6">
 
-                    <h2 className="text-base font-medium text-slate-900 mb-8">
-                        Superadmin
-                    </h2>
-
-                    <nav className="space-y-6">
+                    <nav className="flex flex-col gap-2">
 
                         <button 
                         onClick={() => navigate("/superadmin")}
-                        className="block w-full text-left text-lg text-slate-900 hover:bg-emerald-50 px-2 py-2 rounded-md transition-all duration-200">
+                        className={`block w-full rounded-lg px-4 py-3 text-left text-base font-medium transition-colors duration-200 ${
+                            location.pathname === "/superadmin"
+                            ? "bg-orange-50 text-[#E78300]" : "text-slate-700 hover:bg-orange-50 hover:text-[#E78300]"}`}>
                             Dashboard
                         </button>
 
                         <button 
                         onClick={() => navigate("/superadmin/users")}
-                        className="block w-full text-left text-lg text-slate-900 hover:bg-emerald-50 px-2 py-2 rounded-md transition-all duration-200">
+                        className={`block w-full rounded-lg px-4 py-3 text-left text-base font-medium transition-colors duration-200 ${
+                            location.pathname === "/superadmin/users"
+                            ? "bg-orange-50 text-[#E78300]" : "text-slate-700 hover:bg-orange-50 hover:text-[#E78300]"}`}>
                             Users
                         </button>
 
                         <button 
                         onClick={() => navigate("/superadmin/tasks")}
-                        className="block w-full text-left text-lg text-slate-900 hover:bg-emerald-50 px-2 py-2 rounded-md transition-all duration-200">
+                        className={`block w-full rounded-lg px-4 py-3 text-left text-base font-medium transition-colors duration-200 ${
+                            location.pathname === "/superadmin/tasks"
+                            ? "bg-orange-50 text-[#E78300]" : "text-slate-700 hover:bg-orange-50 hover:text-[#E78300]"}`}>
                             Tasks
                         </button>
 
                         <button
                         onClick={() => navigate("/superadmin/reports")}
-                        className="block w-full text-left text-lg text-slate-900 hover:bg-emerald-50 px-2 py-2 rounded-md transition-all duration-200">
+                        className={`block w-full rounded-lg px-4 py-3 text-left text-base font-medium transition-colors duration-200 ${
+                            location.pathname === "/superadmin/reports"
+                            ? "bg-orange-50 text-[#E78300]" : "text-slate-700 hover:bg-orange-50 hover:text-[#E78300]"}`}>
                             Reports
                         </button>
 
                         <button
-                        onClick={() => navigate("/superadmin/contact-enqueries")}
-                        className="block w-full text-left text-lg text-slate-900 hover:bg-emerald-50 px-2 py-2 rounded-md transition-all duration-200">
+                        onClick={() => navigate("/superadmin/contact-enquiries")}
+                        className={`block w-full rounded-lg px-4 py-3 text-left text-base font-medium transition-colors duration-200 ${
+                            location.pathname === "/superadmin/contact-enquiries"
+                            ? "bg-orange-50 text-[#E78300]" : "text-slate-700 hover:bg-orange-50 hover:text-[#E78300]"}`}>
                             Contact Queries
                         </button>
 
                         <button
                         onClick={() => navigate("/superadmin/settings")}
-                        className="block w-full text-left text-lg text-slate-900 hover:bg-emerald-50 px-2 py-2 rounded-md transition-all duration-200">
+                        className={`block w-full rounded-lg px-4 py-3 text-left text-base font-medium transition-colors duration-200 ${
+                            location.pathname === "/superadmin/settings"
+                            ? "bg-orange-50 text-[#E78300]" : "text-slate-700 hover:bg-orange-50 hover:text-[#E78300]"}`}>
                             Settings
                         </button>
+
+                        <div className="absolute bottom-4 left-3 right-3 border-t border-slate-200 pt-4">
+                            <button 
+                            onClick={handleLogout}
+                            className="flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left text-base font-semibold text-red-600 transition-colors duration-200 hover:bg-red-50">
+                                
+                                <span>Logout</span>
+                                <span className="text-xl" aria-hidden="true">⇥</span>
+                                
+                            </button>
+                        </div>
 
                     </nav>
 
                 </aside>
 
                 {/*pagecontent*/}
-                <main className="flex-1 bg-[#f2fbfa] p-10">
+                <main className="ml-64 min-w-0 flex-1 bg-white p-4 sm:p-6 lg:p-10">
                     {children}
                 </main>
 

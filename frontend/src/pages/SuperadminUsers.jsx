@@ -124,20 +124,20 @@ function SuperadminUsers() {
 
         <div>
 
-            <h2 className="text-4xl font-bold text-slate-900">
+            <h2 className="text-4xl font-bold text-[#071A3D]">
                 User Management Section
             </h2>
 
-            <p className="mt-2 text-lg text-teal-700">
+            <p className="mt-2 text-lg text-orange-400">
                 Manage users and account status
             </p>
 
-            <div className="mt-8 bg-white rounded-2xl shadow-sm overflow-hidden">
+            <div className="mt-8 overflow-x-auto rounded-2xl border border-orange-100 bg-white shadow-sm">
 
                 <table className="w-full text-left">
 
                     <thead>
-                        <tr className="border-b border-slate-200">
+                        <tr className="border-b border-orange-100 bg-orange-50/50">
 
                             <th className="px-6 py-4 text-sm font-medium text-slate-500">User-name</th>
 
@@ -172,7 +172,8 @@ function SuperadminUsers() {
                             </tr>
                         ) : (
                             users.map((user) => (
-                                <tr key={user._id} className="border-b border-slate-200">
+                                <tr key={user._id} 
+                                className="border-b border-slate-100 transition-colors hover:bg-orange-50/50">
 
                                     <td className="px-6 py-4 text-sm text-slate-900">{user.name}</td>
 
@@ -182,7 +183,7 @@ function SuperadminUsers() {
 
                                     <td className="px-6 py-4">
                                         <span
-                                        className={`inline-block rounded-full px-3 py-1 text-xs font-medium ${user.isBlocked
+                                        className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${user.isBlocked
                                             ? "bg-red-100 text-red-700": "bg-green-100 text-green-700"}`}>
                                                 {user.isBlocked ? "Blocked" : "Active"}
                                             </span>
@@ -193,19 +194,19 @@ function SuperadminUsers() {
                                         
                                         <button 
                                         onClick={() => setRoleUser(user)}
-                                        className="bg-teal-600 text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-teal-700">
+                                        className="inline-block rounded-md px-3 py-2 text-sm font-semibold text-orange-400 transition-colors hover:text-orange-700">
                                             Change Role
                                         </button>
                                             
                                         <button 
                                         onClick={() => handleBlockUser(user._id)}
-                                        className="border border-teal-600 text-teal-700 px-3 py-2 rounded-lg text-sm font-medium hover:bg-teal-50">
+                                        className="inline-block rounded-md px-3 py-2 text-sm font-semibold text-blue-500 transition-colors hover:text-blue-700">
                                             {user.isBlocked ? "Activate" : "Block"}
                                         </button>
 
                                         <button 
                                         onClick={() => setDeleteUser(user)}
-                                        className="bg-red-600 text-white px-3 py-2 rounded-lg text-sm font-medium hover:bg-red-500">
+                                        className="inline-block rounded-md px-3 py-2 text-sm font-semibold text-red-600 transition-colors hover:text-red-800">
                                             Delete
                                         </button>
 
@@ -272,7 +273,7 @@ function SuperadminUsers() {
 
                         <button 
                         onClick={() => handleChangeRole(roleUser._id, roleUser.role === "user" ? "superadmin" : "user")}
-                        className="px-4 py-2 rounded-lg bg-teal-600 text-white hover:bg-teal-700">Change</button>
+                        className="px-4 py-2 rounded-lg bg-[#E78300] text-white transition-colors hover:bg-[#D97706]">Change</button>
 
                     </div>
 

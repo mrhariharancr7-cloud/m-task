@@ -8,7 +8,7 @@ import CTA from "../components/CTA";
 
 function Landing() {
     return (
-        <div className="landing-page">
+        <div>
 
             <Header />
 

@@ -141,7 +141,7 @@ function SuperadminEnquiryDetails() {
 
             if (response.ok) {
                 setShowDeleteModal(false);
-                navigate("/superadmin/contact-enqueries");
+                navigate("/superadmin/contact-enquiries");
             } else {
                 console.error(data.message);
             }
@@ -160,9 +160,9 @@ function SuperadminEnquiryDetails() {
                 <div className="mb-8 flex items-start justify-between">
 
                     <div>
-                        <div className="text-4xl font-bold text-slate-900">Enquiry Details</div>
+                        <div className="text-4xl font-bold text-[#071A3D]">Enquiry Details</div>
 
-                        <p className="mt-2 text-lg text-teal-700">
+                        <p className="mt-2 text-lg text-[#E78300]">
                             View the details of the selected enquiry
                         </p>
                     </div>
@@ -221,8 +221,8 @@ function SuperadminEnquiryDetails() {
 
                         <button
                         type="button"
-                        onClick={() => navigate("/superadmin/contact-enqueries")}
-                        className="rounded-lg border border-slate-300 px-4 py-2 text-sm font-medium text-slate-700 hover:bg-slate-100"
+                        onClick={() => navigate("/superadmin/contact-enquiries")}
+                        className="rounded-lg border border-orange-200 px-4 py-2 text-sm font-medium text-[#071A3D] transition-colors hover:bg-orange-50"
                         >Back</button>
 
                     </div>
@@ -262,12 +262,12 @@ function SuperadminEnquiryDetails() {
                             <p className="text-sm font-medium text-slate-500">Status</p>
 
                             <span
-                            className={`inline-block mt-2 px-3 py-1 rounded-full text-xs font-medium ${
+                            className={`inline-block rounded-full px-3 py-1 text-xs font-semibold ${
                                 enquiry.status === "pending"
-                                ? "bg-yellow-100 text-yellow-700"
+                                ? "bg-blue-100 text-blue-700"
                                 : enquiry.status === "replied"
                                 ? "bg-green-100 text-green-700"
-                                : "bg-slate-100 text-slate-700"}`}>
+                                : "bg-red-100 text-red-700"}`}>
                                 {enquiry.status}
                             </span>
                         </div>
@@ -293,7 +293,7 @@ function SuperadminEnquiryDetails() {
                             value={replyMessage}
                             onChange={(e) => setReplyMessage(e.target.value)}
                             placeholder="Write your reply here..."
-                            className="mt-4 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none focus:border-teal-500 focus:ring-2 focus:ring-teal-100"
+                            className="mt-4 w-full rounded-xl border border-slate-300 px-4 py-3 text-sm text-slate-900 outline-none focus:border-[#E78300] focus:ring-2 focus:ring-orange-100"
                             />
 
                             <div className="mt-4 flex justify-end">
@@ -301,7 +301,7 @@ function SuperadminEnquiryDetails() {
                                 <button 
                                 type="button"
                                 onClick={handleReply}
-                                className="rounded-lg bg-teal-600 px-5 py-2.5 text-sm font-medium text-white hover:bg-teal-700">Send Reply</button>
+                                className="rounded-lg bg-[#E78300] px-5 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#D97706]">Send Reply</button>
 
                             </div>
 

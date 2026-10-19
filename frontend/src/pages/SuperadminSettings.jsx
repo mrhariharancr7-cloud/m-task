@@ -75,13 +75,13 @@ function SuperadminSettings() {
         <div>
             
             {/*settingpagecontent*/}
-            <div className="mx-auto max-w-2xl px-6 py-10">
+            <div className="mx-auto max-w-4xl px-4 py-6 sm:px-6 sm:py-10">
 
-                <h1 className="mb-2 text-4xl font-bold text-slate-900">Settings</h1>
+                <h1 className="mb-2 text-3xl font-bold text-[#071A3D] sm:text-4xl">Settings</h1>
 
                 {/*accountsection*/}
-                <section className="border-b border-gray-200 pb-8">
-                    <h2 className="mb-6 text-2xl font-semibold text-slate-900">
+                <section className="mt-6 rounded-2xl border border-orange-100 bg-white p-5 shadow-sm sm:p-8">
+                    <h2 className="mb-6 text-2xl font-bold text-[#071A3D]">
                         Account
                     </h2>
 
@@ -95,7 +95,7 @@ function SuperadminSettings() {
                         type="text"
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
-                        className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600"
+                        className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-[#E78300] focus:ring-2 focus:ring-orange-100"
                          />
                     </div>
 
@@ -127,7 +127,7 @@ function SuperadminSettings() {
                         type="password"
                         value={currentPassword}
                         onChange={(e) => setCurrentPassword(e.target.value)}
-                        className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600"
+                        className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-[#E78300] focus:ring-2 focus:ring-orange-100"
                          />
                     </div>
 
@@ -140,7 +140,7 @@ function SuperadminSettings() {
                         type="password"
                         value={newPassword}
                         onChange={(e) => setNewPassword(e.target.value)}
-                        className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600"
+                        className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-[#E78300] focus:ring-2 focus:ring-orange-100"
                          />
                     </div>
 
@@ -153,18 +153,18 @@ function SuperadminSettings() {
                         type="password"
                         value={confirmPassword}
                         onChange={(e) => setConfirmPassword(e.target.value)}
-                        className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-teal-600"
+                        className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-[#E78300] focus:ring-2 focus:ring-orange-100"
                          />
                     </div>
 
                     <button 
                     onClick={handleSave}
-                    className="rounded-lg bg-teal-700 px-6 py-3 font-medium text-white hover:bg-teal-800">
+                    className="rounded-lg bg-[#E78300] px-6 py-3 font-semibold text-white transition-colors hover:bg-[#D97706]">
                     Save
                     </button>
 
                     {message && (
-                        <p className="mt-4 text-sm text-teal-700">
+                        <p className="mt-4 text-sm text-[#071A3D]" role="status">
                             {message}
                         </p>
                     )}
@@ -174,7 +174,7 @@ function SuperadminSettings() {
 
                 {/*helpsection*/}
                 <section className="border-b border-gray-200 py-8">
-                    <h2 className="mb-4 text-2xl font-semibold text-slate-900">
+                    <h2 className="mb-4 text-2xl font-bold text-[#071A3D]">
                         Help & Feedback
                     </h2>
 
@@ -183,11 +183,11 @@ function SuperadminSettings() {
                     </p>
 
                     <div className="flex gap-6">
-                        <button className="text-teal-700 hover:underline">
+                        <button className="font-medium text-[#E78300] transition-colors hover:text-[#D97706] hover:underline">
                             Learn more 
                         </button>
 
-                        <button className="text-teal-700 hover:underline">
+                        <button className="font-medium text-[#E78300] transition-colors hover:text-[#D97706] hover:underline">
                             Send feedback
                         </button>
                     </div>
@@ -195,7 +195,7 @@ function SuperadminSettings() {
 
                 {/*aboutsection*/}
                 <section className="py-8">
-                    <h2 className="mb-4 text-2xl font-semibold text-slate-900">
+                    <h2 className="mb-4 text-2xl font-bold text-[#071A3D]">
                         About
                     </h2>
 

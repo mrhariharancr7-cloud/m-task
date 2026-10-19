@@ -37,20 +37,20 @@ function SuperadminTasks() {
 
         <div>
 
-            <h2 className="text-4xl font-bold text-slate-900">
+            <h2 className="text-4xl font-bold text-[#071A3D]">
                 Task Management Section
             </h2>
 
-            <p className="mt-2 text-lg text-teal-700">
+            <p className="mt-2 text-lg text-orange-400">
                 Monitor and view tasks across all users
             </p>
 
-            <div className="mt-8 bg-white rounded-2xl shadow-sm overflow-hidden">
+            <div className="mt-8 overflow-x-auto rounded-2xl border border-orange-100 bg-white shadow-sm">
 
                 <table className="w-full text-left">
 
                     <thead>
-                        <tr className="border-b border-slate-200">
+                        <tr className="border-b border-orange-100 bg-orange-50/50">
 
                             <th className="px-6 py-4 text-sm font-medium text-slate-500">Task</th>
 
@@ -92,7 +92,7 @@ function SuperadminTasks() {
                             tasks.map((task) => (
 
                                 <tr key={task._id}
-                                className="border-b border-slate-200">
+                                className="border-b border-slate-100 transition-colors hover:bg-orange-50/50">
 
                                     <td className="px-6 py-4 text-sm text-slate-900">{task.title}</td>
 
@@ -101,23 +101,40 @@ function SuperadminTasks() {
                                     <td className="px-6 py-4 text-sm text-slate-600">{task.list}</td>
 
                                     <td className="px-6 py-4 text-sm text-slate-600">
-                                        {task.completed ? "Completed" : "Pending"}
+                                        <span 
+                                        className={
+                                            task.completed
+                                            ? "inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700"
+                                            : "inline-block rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700"
+                                        }>
+                                            {task.completed ? "completed" : "Pending"}
+                                        </span>
                                     </td>
 
-                                    <td className="px-6 py-4 text-sm text-slate-600">
-                                        {task.dueDate
-                                        ? new Date(task.dueDate).toLocaleDateString()
-                                        : "No due date"}
+                                    <td className="px-6 py-4 text-sm">
+                                        {task.dueDate ? (
+                                            <span className="text-slate-600">
+                                                {new Date(task.dueDate).toLocaleDateString()}
+                                            </span>
+                                        ) : (
+                                            <span className="font-medium text-red-600">No due date</span>
+                                        )}
                                     </td>
 
-                                    <td className="px-6 py-4 text-sm text-slate-600">
-                                        {task.important ? "Important" : "Not Important"}
+                                    <td className="px-6 py-4 text-sm">
+                                        <span 
+                                        className={task.important
+                                            ? "inline-block rounded-full bg-orange-100 px-3 py-1 text-xs font-semibold text-orange-700"
+                                            : "inline-block rounded-full bg-yellow-200 px-3 py-1 text-xs font-semibold text-yellow-800"
+                                        }>
+                                            {task.important ? "Important" : "Not Important"}
+                                        </span>
                                     </td>
 
                                     <td className="px-6 py-4">
                                         <button 
                                         onClick={() => setSelectedTask(task)}
-                                        className="bg-teal-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-teal-700">
+                                        className="inline-block rounded-md px-6 py-2 text-sm font-semibold text-[#E78300] transition-colors hover:bg-orange-50 hover:text-[#D97706]">
                                             View
                                         </button>
                                     </td>
@@ -139,7 +156,7 @@ function SuperadminTasks() {
 
                 <div className="bg-white rounded-2xl p-8 w-96 shadow-xl">
 
-                    <h2 className="text-2xl font-bold text-slate-900">Task Detail</h2>
+                    <h2 className="text-2xl font-bold text-slate-900">Task Details</h2>
 
                     <div className="mt-5 space-y-3">
 
@@ -185,7 +202,9 @@ function SuperadminTasks() {
 
                         <button
                         onClick={() => setSelectedTask(null)}
-                        className="bg-teal-600 text-white px-5 py-2 rounded-lg font-medium hover:bg-teal-700">Close</button>
+                        className="bg-orange-400 text-white px-5 py-2 rounded-lg font-medium transition-colors hover:bg-[#D97706]">
+                            Close
+                        </button>
                     </div>
 
                 </div>

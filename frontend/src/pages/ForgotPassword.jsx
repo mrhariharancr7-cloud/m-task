@@ -1,6 +1,6 @@
 import {useState} from "react";
 import { useNavigate } from "react-router-dom";
-import "./Login.css";
+
 
 
 function ForgotPassword() {
@@ -64,20 +64,32 @@ function ForgotPassword() {
 
 
     return(
-        <div className="login-page">
+        <div className="flex min-h-screen items-center justify-center bg-[#F8FAFC] px-4 py-12">
 
             <button
             type="button"
             onClick={() => navigate("/login")}
-            className="fixed top-6 left-6 text-teal-700 font-medium hover:text-teal-900">Back to Login</button>
+            className="fixed left-6 top-6 font-medium text-[#E78300] transition-colors hover:text-[#D97706]">Back to Login</button>
             
-            <div className="login-card">
-            <h1>M-Task</h1>
-            <h4>Forgot password</h4>
+            <div className="w-full max-w-md rounded-2xl border border-orange-100 bg-white px-6 py-8 shadow-lg shadow-slate-900/10 sm:px-8 sm:py-10">
+            
+            <div className="mb-8 text-center">
+
+                <div className="mb-5 inline-flex items-center gap-2">
+                
+                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#E78300] text-2xl font-bold text-white shadow-sm">✓</span>
+
+                    <span className="text-3xl font-bold tracking-tight text-[#071A3D]">M-Task</span>
+                    
+                </div>
+
+                <h1 className="text-2xl font-bold text-[#071A3D]">Forgot Password</h1>
+
+              </div>
         
 
-        <div className="input-group">
-           <label>Email:</label>
+        <div  className="mb-5">
+           <label className="mb-2 block text-sm font-semibold text-[#071A3D]">Email Address:</label>
 
 
            <input
@@ -85,15 +97,17 @@ function ForgotPassword() {
              placeholder="Enter your email"
              value={email}
              onChange={(e) => setEmail(e.target.value)}
+             className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-[#071A3D] 
+             outline-none transition-all placeholder:text-slate-400 focus:border-[#E78300] focus:ring-2 focus:ring-orange-100"
              />
         </div>
 
         <button 
-        className="login-button"
+        className="mt-2 w-full rounded-lg bg-[#E78300] px-4 py-3 font-semibold text-white transition-colors hover:bg-[#D97706] focus:outline-none focus:ring-4 focus:ring-orange-200"
         onClick={handelSendOtp}>Send OTP</button>
 
         {message && (
-            <p className="mt-3 text-center text-sm font-medium text-teal-700">{message}</p>
+            <p className="mt-3 text-center text-sm font-medium text-[#071A3D]">{message}</p>
         )}
 
         {otpSent && (
@@ -106,7 +120,8 @@ function ForgotPassword() {
                 placeholder="Enter OTP"
                 value={otp}
                 onChange={(e) => setOtp(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600" />
+                className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-[#071A3D] 
+                outline-none transition-all placeholder:text-slate-400 focus:border-[#E78300] focus:ring-2 focus:ring-orange-100"/>
             </div>
         )}
 
@@ -120,7 +135,8 @@ function ForgotPassword() {
                 placeholder="Enter new password"
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600" />
+                className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-[#071A3D] 
+                outline-none transition-all placeholder:text-slate-400 focus:border-[#E78300] focus:ring-2 focus:ring-orange-100" />
             </div>
         )}
 
@@ -134,19 +150,21 @@ function ForgotPassword() {
                 placeholder="Enter confirm password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-300 rounded-lg outline-none focus:border-teal-600 focus:ring-1 focus:ring-teal-600"
+                className="w-full rounded-lg border border-slate-300 bg-white px-4 py-3 text-sm text-[#071A3D] 
+                outline-none transition-all placeholder:text-slate-400 focus:border-[#E78300] focus:ring-2 focus:ring-orange-100"
                  />
             </div>
         )}
 
         {otpSent && (
             <button 
-            className="w-full mt-6 px-4 py-3 bg-teal-700 text-white font-semibold rounded-lg hover:bg-teal-800"
+            className="mt-6 w-full rounded-lg bg-[#E78300] px-4 py-3 font-semibold 
+            text-white transition-colors hover:bg-[#D97706] focus:outline-none focus:ring-4 focus:ring-orange-200"
             onClick={handelResetPassord}>Reset Password</button>
         )}
 
         {resetMessage && (
-            <p className="mt-3 text-sm text-teal-700 text-center">
+            <p className="mt-3 text-center text-sm font-medium text-[#071A3D]">
                 {resetMessage}
             </p>
         )}

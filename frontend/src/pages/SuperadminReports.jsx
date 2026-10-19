@@ -66,10 +66,10 @@ function SuperadminReports() {
     ];
 
     const ACCOUNT_COLORS = [
-        "#0d9488",
-        "#ef4444",
-        "#3b82f6",
-        "#8b5cf6"
+        "rgb(27, 241, 20)",
+        "rgb(237, 25, 25)",
+        "rgb(36, 67, 225)",
+        "hsl(29, 88%, 52%)"
     ]
 
     return (
@@ -77,25 +77,25 @@ function SuperadminReports() {
 
             <div>
 
-                <h2 className="text-4xl font-bold text-slate-900">
+                <h2 className="text-4xl font-bold text-[#071A3D]">
                     Reports Section
                 </h2>
 
-                <p className="mt-2 text-lg text-teal-700">
+                <p className="mt-2 text-lg text-orange-400">
                     Reports of users and tasks in M-Task
                 </p>
                 
                 {/*users-report-charts*/}
-                <div className="grid grid-cols-2 gap-6 mt-10">
+                <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-2">
 
                 {/*user-register-chart*/}
-                <div className="bg-white rounded-2xl p-6 shadow-sm border">
+                <div className="rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-shadow duration-300 hover:shadow-md">
 
                     <div className="flex items-center justify-between">
 
                         <div>
 
-                            <h3 className="text-xl font-bold text-slate-900">User Registrations</h3>
+                            <h3 className="text-xl font-bold text-[#071A3D]">User Registrations</h3>
 
                             <p className="text-sm text-slate-500 mt-1">
                                 New users registered in {year}
@@ -135,7 +135,7 @@ function SuperadminReports() {
 
                                 <Bar
                                 dataKey="value"
-                                fill="#0d9488"
+                                fill="#E78300"
                                 radius={[6, 6, 0, 0]}/>
 
                             </BarChart>
@@ -147,9 +147,9 @@ function SuperadminReports() {
                 </div>
 
                     {/*user-account-chart*/}
-                    <div className="bg-white rounded-2xl p-6 shadow-sm border">
+                    <div className="rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-shadow duration-300 hover:shadow-md">
 
-                        <h3 className="text-xl font-bold text-slate-900">
+                        <h3 className="text-xl font-bold text-[#071A3D]">
                             User Account status
                         </h3>
 
@@ -198,38 +198,38 @@ function SuperadminReports() {
                 {/*users-report*/}
                 <div className="mt-10">
 
-                    <h3 className="text-2xl font-bold text-slate-900">User Report</h3>
+                    <h3 className="text-2xl font-bold text-[#071A3D]">User Report</h3>
 
-                    <div className="grid grid-cols-5 gap-6 mt-6">
+                    <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-5">
 
-                        <div className="bg-white rounded-2xl p-8 shadow-sm border">
-                            <p className="text-sm text-slate-500">Total Users</p>
+                        <div className="rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-8">
+                            <p className="text-sm font-medium text-slate-500">Total Users</p>
 
-                            <p className="text-4xl font-bold text-slate-900 mt-3">{userReport.totalUsers || 0}</p>
+                            <p className="mt-3 text-3xl font-bold text-[#071A3D] sm:text-4xl">{userReport.totalUsers || 0}</p>
                         </div>
 
-                        <div className="bg-white rounded-2xl p-8 shadow-sm border">
-                            <p className="text-sm text-slate-500">Active Users</p>
+                        <div className="rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-8">
+                            <p className="text-sm font-medium text-slate-500">Active Users</p>
 
-                            <p className="text-4xl font-bold text-slate-900 mt-3">{userReport.activeUsers || 0}</p>  
+                            <p className="mt-3 text-3xl font-bold text-[#071A3D] sm:text-4xl">{userReport.activeUsers || 0}</p>  
                         </div>
 
-                        <div className="bg-white rounded-2xl p-8 shadow-sm border">
-                            <p className="text-sm text-slate-500">Blocked Users</p>
+                        <div className="rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-8">
+                            <p className="text-sm font-medium text-slate-500">Blocked Users</p>
 
-                            <p className="text-4xl font-bold text-slate-900 mt-3">{userReport.blockedUsers || 0}</p>  
+                            <p className="mt-3 text-3xl font-bold text-[#071A3D] sm:text-4xl">{userReport.blockedUsers || 0}</p>  
                         </div>
 
-                        <div className="bg-white rounded-2xl p-8 shadow-sm border">
-                            <p className="text-sm text-slate-500">Normal Users</p>
+                        <div className="rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-8">
+                            <p className="text-sm font-medium text-slate-500">Normal Users</p>
 
-                            <p className="text-4xl font-bold text-slate-900 mt-3">{userReport.normalUsers || 0}</p>  
+                            <p className="mt-3 text-3xl font-bold text-[#071A3D] sm:text-4xl">{userReport.normalUsers || 0}</p>  
                         </div>
 
-                        <div className="bg-white rounded-2xl p-8 shadow-sm border">
-                            <p className="text-sm text-slate-500">Superadmins</p>
+                        <div className="rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-8">
+                            <p className="text-sm font-medium text-slate-500">Superadmins</p>
 
-                            <p className="text-4xl font-bold text-slate-900 mt-3">{userReport.superadmins || 0}</p>  
+                            <p className="mt-3 text-3xl font-bold text-[#071A3D] sm:text-4xl">{userReport.superadmins || 0}</p>  
                         </div>
 
                     </div>
@@ -239,38 +239,38 @@ function SuperadminReports() {
                 {/*tasks-report*/}
                 <div className="mt-10">
 
-                    <h3 className="text-2xl font-bold text-slate-900">Task report</h3>
+                    <h3 className="text-2xl font-bold text-[#071A3D]">Task report</h3>
 
-                    <div className="grid grid-cols-5 gap-6 mt-6">
+                    <div className="mt-6 grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-5">
 
-                        <div className="bg-white rounded-2xl p-8 shadow-sm border">
-                            <p className="text-sm text-slate-500">Total Tasks</p>
+                        <div className="rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-8">
+                            <p className="text-sm font-medium text-slate-500">Total Tasks</p>
 
-                            <p className="text-4xl font-bold text-slate-900 mt-3">{taskReport.totalTasks || 0}</p>
+                            <p className="mt-3 text-3xl font-bold text-[#071A3D] sm:text-4xl">{taskReport.totalTasks || 0}</p>
                         </div>
 
-                        <div className="bg-white rounded-2xl p-8 shadow-sm border">
-                            <p className="text-sm text-slate-500">Completed Tasks</p>
+                        <div className="rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-8">
+                            <p className="text-sm font-medium text-slate-500">Completed Tasks</p>
 
-                            <p className="text-4xl font-bold text-slate-900 mt-3">{taskReport.completedTasks || 0}</p>
+                            <p className="mt-3 text-3xl font-bold text-[#071A3D] sm:text-4xl">{taskReport.completedTasks || 0}</p>
                         </div>
 
-                        <div className="bg-white rounded-2xl p-8 shadow-sm border">
-                            <p className="text-sm text-slate-500">Pending Tasks</p>
+                        <div className="rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-8">
+                            <p className="text-sm font-medium text-slate-500">Pending Tasks</p>
 
-                            <p className="text-4xl font-bold text-slate-900 mt-3">{taskReport.pendingTasks || 0}</p>
+                            <p className="mt-3 text-3xl font-bold text-[#071A3D] sm:text-4xl">{taskReport.pendingTasks || 0}</p>
                         </div>
 
-                        <div className="bg-white rounded-2xl p-8 shadow-sm border">
-                            <p className="text-sm text-slate-500">Important Tasks</p>
+                        <div className="rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-8">
+                            <p className="text-sm font-medium text-slate-500">Important Tasks</p>
 
-                            <p className="text-4xl font-bold text-slate-900 mt-3">{taskReport.importantTasks || 0}</p>
+                            <p className="mt-3 text-3xl font-bold text-[#071A3D] sm:text-4xl">{taskReport.importantTasks || 0}</p>
                         </div>
 
-                        <div className="bg-white rounded-2xl p-8 shadow-sm border">
-                            <p className="text-sm text-slate-500">Overdue Tasks</p>
+                        <div className="rounded-2xl border border-orange-100 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-md sm:p-8">
+                            <p className="text-sm font-medium text-slate-500">Overdue Tasks</p>
 
-                            <p className="text-4xl font-bold text-slate-900 mt-3">{taskReport.overdueTasks || 0}</p>
+                            <p className="mt-3 text-3xl font-bold text-[#071A3D] sm:text-4xl">{taskReport.overdueTasks || 0}</p>
                         </div>
  
                     </div>
@@ -280,16 +280,16 @@ function SuperadminReports() {
                 {/*useractivity-table*/}
                 <div className="mt-10">
 
-                    <h3 className="text-2xl font-bold text-slate-900">
+                    <h3 className="text-2xl font-bold text-[#071A3D]">
                         User Activity
                     </h3>
 
-                    <div className="mt-6 bg-white rounded-2xl shadow-sm overflow-hidden">
+                    <div className="mt-6 overflow-x-auto rounded-2xl border border-orange-100 bg-white shadow-sm">
 
                         <table className="w-full">
 
                             <thead>
-                                <tr className="border-b border-slate-200">
+                                <tr className="border-b border-orange-100 bg-orange-50/50">
 
                                     <th className="px-6 py-4 text-left text-sm font-medium text-slate-500">User Name</th>
 
@@ -324,8 +324,8 @@ function SuperadminReports() {
                                         <td className="px-6 py-4 text-left text-sm">
                                             <span
                                             className={user.accountStatus === "Active"
-                                                ? "text-green-700 bg-green-100 px-3 py-1 rounded-full inline-block"
-                                                : "text-red-700 bg-red-100 px-3 py-1 rounded-full inline-block"
+                                                ? "inline-block rounded-full bg-green-100 px-3 py-1 text-xs font-semibold text-green-700"
+                                                : "inline-block rounded-full bg-red-100 px-3 py-1 text-xs font-semibold text-red-700"
                                             }>{user.accountStatus}</span>
                                         </td>
 
