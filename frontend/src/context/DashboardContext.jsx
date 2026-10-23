@@ -1,11 +1,12 @@
 import { createContext,useContext,useEffect,useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const DashboardContext = createContext();
 
 export function DashboardProvider({ children }) {
 
     const navigate = useNavigate();
+    const location = useLocation();
     const [user, setUser] = useState(null);
     const [tasks, setTasks] = useState([]);
     const [lists, setLists] = useState(() => {
@@ -17,16 +18,75 @@ export function DashboardProvider({ children }) {
         }
     });
 
+    const  PUBLIC_ROUTES =["/", "/login", "/register", "/forgot-password", "/features", "/about", "/contact",]
+
 
 const [loading, setLoading] = useState(true);
+
+const [settings,setSettings] = useState(() => {
+    try {
+        const savedSettings = localStorage.getItem("userSettings");
+
+        return savedSettings
+        ? JSON.parse(savedSettings)
+        : {
+            startOfWeek: "Monday",
+            showImportant: true,
+            showCompleted: true,
+        };
+    } catch {
+        return {
+            startOfWeek: "Monday",
+            showImportant: true,
+            showCompleted: true,
+        };
+    }
+});
+
+const updateSettings = (updates) => {
+    setSettings((previousSettings) => {
+        const updatedSettings = {
+            ...previousSettings,
+            ...updates,
+        };
+
+        localStorage.setItem("userSettings", JSON.stringify(updatedSettings));
+        return updatedSettings;
+    });
+};
+
+const fetchCustomLists = async (token) => {
+    const response = await fetch("http://localhost:5001/api/custom-lists", {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to fetch custom lists");
+    }
+
+    const data = await response.json();
+
+    const customListNames = (data.customLists || []).map((list) => list.name);
+
+    setLists(customListNames);
+    localStorage.setItem("lists", JSON.stringify(customListNames));
+};
 
 //fetch user profile and all tasks data
 
 useEffect(() => {
     const token = localStorage.getItem("token");
 
+    const isPublicRoute = PUBLIC_ROUTES.includes(location.pathname);
+
     if (!token) {
-        navigate("/login", { replace: true });
+        if (!isPublicRoute) {
+            navigate("/login", { replace: true });
+        }
+
+        setLoading(false);
         return;
     }
 
@@ -66,6 +126,8 @@ useEffect(() => {
 
             setUser(profileData.user);
             setTasks(tasksData.tasks || []);
+            await fetchCustomLists(token);
+
         } catch (error) {
             console.error("Dashboard loading error:", error);
 
@@ -75,7 +137,7 @@ useEffect(() => {
     };
     fetchDashboardData();
 
-}, [navigate]);
+}, [navigate, location.pathname]);
 
 // calculate statistics
 
@@ -123,8 +185,7 @@ const saveLists = (updatedLists) => {
 };
 
 // create custom list
-
-const handleCreateList = (listName) => {
+const handleCreateList = async (listName) => {
     const trimmedName = listName.trim();
 
     if (!trimmedName) {
@@ -141,9 +202,41 @@ const handleCreateList = (listName) => {
         return false;
     }
 
-    saveLists([...lists, trimmedName]);
-    return true;
-}
+    const token = localStorage.getItem("token");
+
+    try {
+        const response = await fetch("http://localhost:5001/api/custom-lists", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                name: trimmedName,
+            }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.message || "Failed to create custom list");
+            return false;
+        }
+
+        setLists((previousLists) => {
+            const updatedLists = [...previousLists, data.customList.name];
+            localStorage.setItem("lists", JSON.stringify(updatedLists));
+            return updatedLists;
+        });
+
+        return true;
+
+    } catch (error) {
+        console.error("Create custom list error:", error);
+        alert("Unable to create custom list. Please try again.");
+        return false;
+    }
+};
 
 // rename lists
 const handleRenameList = async (oldName, newName) => {
@@ -165,49 +258,132 @@ const handleRenameList = async (oldName, newName) => {
         return false;
     }
 
-    const updatedLists = lists.map((list) =>
-    list === oldName ? trimmedName : list);
+    const token = localStorage.getItem("token");
 
-    const affectedTasks = tasks.filter((task) => task.list === oldName);
+    try {
+        const listResponse = await fetch("http://localhost:5001/api/custom-lists", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
 
-    const updateResults = await Promise.all(
-        affectedTasks.map((task) =>
-            handleUpdateTask(task._id, { list: trimmedName })
-        )
-    );
+        if (!listResponse.ok) {
+            throw new Error("Failed to fetch custom lists");
+        }
 
-    if (updateResults.some((result) => !result)) {
-        alert("Some tasks could not be updated. Please try again.");
+        const listData = await listResponse.json();
+
+        const targetList = (listData.customLists || []).find(
+            (list) => list.name === oldName
+        );
+
+        if (!targetList) {
+            alert("Custom list not found");
+            return false;
+        }
+
+        const response = await fetch(`http://localhost:5001/api/custom-lists/${targetList._id}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify({
+                name: trimmedName,
+            }),
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.message || "Failed to rename custom list");
+            return false;
+        }
+
+        setLists((previousLists) => {
+            const updatedLists = previousLists.map((list) => 
+            list === oldName ? data.customList.name : list 
+        );
+
+        localStorage.setItem("lists", JSON.stringify(updatedLists));
+
+        return updatedLists;
+        });
+        
+        setTasks((previousTasks) =>
+            previousTasks.map((task) =>
+                task.list === oldName
+                    ? { ...task, list: data.customList.name }
+                    : task
+        ));
+        
+        return true;
+    } catch (error) {
+        console.error("Rename custom list error:", error);
+        alert("Unable to rename custom list. Please try again.");
         return false;
     }
-
-    saveLists(updatedLists);
-
-    return true;
 };
 
 // delete list
-
 const handleDeleteList = async (listName) => {
-    const tasksToDelete = tasks.filter(
-        (task) => task.list === listName);
+    const token = localStorage.getItem("token");
 
-    const deleteResults = await Promise.all(
-        tasksToDelete.map((task) => handleDeleteTask(task._id))
-    );
+    try {
+        const listResponse = await fetch("http://localhost:5001/api/custom-lists", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
 
-    if (deleteResults.some((result) => result !== true)) {
-        alert("Some tasks could not be deleted. Please try again.");
+        if (!listResponse.ok) {
+            throw new Error("Failed to fetch custom lists");
+        }
+
+        const listData = await listResponse.json();
+
+        const targetList = (listData.customLists || []).find(
+            (list) => list.name === listName
+        );
+
+        if (!targetList) {
+            alert("Custom list not found");
+            return false;
+        }
+
+        const response = await fetch(`http://localhost:5001/api/custom-lists/${targetList._id}`, {
+            method: "DELETE",
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+            alert(data.message || "Failed to delete custom list");
+            return false;
+        }
+
+        setLists((previousLists) => {
+            const updatedLists = previousLists.filter(
+                (list) => list !== listName
+            );
+
+            localStorage.setItem("lists", JSON.stringify(updatedLists));
+
+            return updatedLists;
+        });
+
+        setTasks((previousTasks) =>
+            previousTasks.filter((task) => task.list !== listName));
+
+        return true;
+    } catch (error) {
+        console.error("Delete custom list error:", error);
+        alert("Unable to delete custom list. Please try again.");
         return false;
     }
-
-    const updatedLists = lists.filter(
-        (list) => list !== listName
-    );
-
-    saveLists(updatedLists);
-    return true;
-
 };
 
 
@@ -366,7 +542,7 @@ const handleLogout = async () => {
 
 const value = {user,tasks,setTasks,lists,setLists,saveLists,loading,totalTasks,completedTasks,pendingTasks,importantTasks,
     overdueTasks,isTaskOverdue,handleLogout, handleAddTask, handleUpdateTask, handleImportantTask, handleCompleteTask,
-    handleDeleteTask, handleCreateList, handleRenameList, handleDeleteList,
+    handleDeleteTask, handleCreateList, handleRenameList, handleDeleteList, settings, updateSettings,
 };
 
 return (

@@ -175,15 +175,14 @@ function MyTasks() {
                                                 <span className="rounded-md bg-slate-100 px-3 py-1 text-xs text-slate-600 font-semibold">{task.list || "My-Task"}</span>
 
                                                 {task.dueDate && (
-                                                    <span 
-                                                    className={`text-xs ${
-                                                        !task.completed &&
-                                                        isTaskOverdue(task)
-                                                        ? "font-semibold text-red-600"
-                                                        : "text-slate-700"}`}>
-                                                            Due:{" "}
-                                                            {new Date(task.dueDate).toLocaleDateString()}
-                                                            {!task.completed && isTaskOverdue(task) && " · Overdue"}
+                                                    <span className={`inline-flex items-center rounded-md px-2.5 py-1 text-xs font-semibold ${
+                                                        !task.completed && isTaskOverdue(task) 
+                                                        ? "bg-red-100 text-red-700"
+                                                        : "bg-green-100 text-green-700"}`}>
+                                                            {!task.completed && isTaskOverdue(task) 
+                                                            ? "Overdue:" 
+                                                            : "Due:"}{" "}
+                                                            {new Date(task.dueDate).toLocaleDateString("en-US", {month: "2-digit",day: "2-digit",year: "numeric",timeZone: "UTC",})}
                                                         </span>
                                                 )}
                                             </div>
@@ -227,7 +226,7 @@ function MyTasks() {
             isDeleting={isDeleting}/>
 
         </section>
-    )
+    );
 }
 
 export default MyTasks;

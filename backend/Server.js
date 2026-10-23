@@ -8,8 +8,10 @@ import jwt from "jsonwebtoken";
 import authMiddleware from "./middleware/authmiddleware.js";
 import roleMiddleware from "./middleware/rolemiddleware.js";
 import Task from "./models/Task.js";
+import CustomList from "./models/CustomList.js";
 import nodemailer from "nodemailer";
 import Enquiry from "./models/Enquiry.js";
+import customListRoutes from "./routes/customListRoutes.js";
 
 
 dotenv.config();
@@ -29,6 +31,8 @@ const app = express();
 app.use(cors());
 
 app.use(express.json());
+
+app.use("/api/custom-lists", customListRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => console.log("MongoDB is connected"))

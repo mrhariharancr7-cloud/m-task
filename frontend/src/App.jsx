@@ -4,8 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
-import Dashboard from "./pages/Dashboard";
-import Settings from "./pages/Settings";
+import Settings from "./pages/dashboard/Settings";
 import ForgotPassword from "./pages/ForgotPassword";
 import SuperadminDashboard from "./pages/SuperadminDashboard";
 import SuperadminUsers from "./pages/SuperadminUsers";
@@ -27,19 +26,19 @@ import CustomListTasks from "./pages/dashboard/CustomListTasks";
 function App() {
     return (
         <BrowserRouter>
+        <DashboardProvider>
             <Routes>
                 <Route path="/" element={<Landing />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/register" element={<Register />} />
                 <Route path="/contact" element={<ContactUs />} />
-
-                <Route path="/dashboard" element={<DashboardProvider> <DashboardLayout /> </DashboardProvider>}>
+                <Route path="/dashboard" element={<DashboardLayout />}>
                 <Route index element={<MyTasks />} />
                 <Route path="important" element={<ImportantTasks />} />
                 <Route path="completed" element={<CompletedTasks />} />
                 <Route path="list/:listName" element={<CustomListTasks />} />
+                <Route path="settings" element={<Settings />} />
                 </Route>
-                <Route path="/settings" element={<Settings />} />
                 
                 <Route path="/forgot-password" element={<ForgotPassword />} />
                 <Route path="/superadmin" element={<SuperadminDashboard />} />
@@ -52,6 +51,7 @@ function App() {
                 <Route path="/features" element={<Feature />} />
                 <Route path="/about" element={<About />} />
             </Routes>
+        </DashboardProvider>
         </BrowserRouter>
     );
 }

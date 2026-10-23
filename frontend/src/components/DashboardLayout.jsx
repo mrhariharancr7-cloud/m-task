@@ -1,10 +1,22 @@
+import { useState } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import { useDashboard } from "../context/DashboardContext";
-import StatsCards from "./dashboard/StatsCards";
+import ListForm from "./dashboard/ListForm";
+
 
 function DashboardLayout() {
 
-    const { user, lists, loading, handleLogout } = useDashboard();
+    const { user, lists, loading, handleLogout, handleCreateList, settings} = useDashboard();
+
+    const [showListForm, setShowListForm] = useState(false);
+
+    const handleSubmitList = async (listName) => {
+        const success = await handleCreateList(listName);
+
+        if (success) {
+            setShowListForm(false);
+        }
+    };
     
     const navLinkClass = ({ isActive }) => 
         `flex items-center gap-3 rounded-lg px-4 py-3 font-medium transition-colors ${
@@ -85,16 +97,20 @@ function DashboardLayout() {
                         <span className="text-lg text-current">☷</span>
                         <span>My-Tasks</span>
                         </NavLink>
-                        
+
+                        {settings.showImportant && (
                         <NavLink to="/dashboard/important" end className={navLinkClass}>
                         <span className="text-lg text-current">★</span>
                         <span>Important</span>
                         </NavLink>
+                        )}
 
+                        {settings.showCompleted && (
                         <NavLink to="/dashboard/completed" end className={navLinkClass}>
                          <span className="text-lg text-current">✓</span>
                          <span>Completed</span>
                         </NavLink>
+                        )}
 
                         <div className="mt-3 border-t border-slate-200 pt-3">
                             <p className="px-4 pb-2 text-xs font-semibold uppercase tracking-wide text-[#E78300]">My Lists</p>
@@ -104,12 +120,22 @@ function DashboardLayout() {
                                 key={list}
                                 to={`/dashboard/list/${encodeURIComponent(list)}`}
                                 className={navLinkClass}>
-                                    {list}
+                                    <span className="text-lg text-current">☰</span>
+                                    <span>{list}</span>
                                 </NavLink>
                             ))}
+
+                            <button 
+                            type="button"
+                            onClick={() => setShowListForm(true)}
+                            className="mt-2 flex w-full items-center gap-3 rounded-lg px-4 py-3 text-left font-medium text-[#E78300] transition-colors hover:bg-[#FFF7ED]"
+                            >
+                                <span className="text-xl">+</span>
+                                <span>New List</span>
+                            </button>
                         </div>
                         
-                        <NavLink to="/settings" className={navLinkClass}>
+                        <NavLink to="/dashboard/settings" className={navLinkClass}>
                         <span className="text-lg text-current">⚙</span>
                         <span>Settings</span>
                         </NavLink>
@@ -132,6 +158,13 @@ function DashboardLayout() {
                 </main>
 
             </div>
+
+            {showListForm && (
+                <ListForm 
+                onSubmit={handleSubmitList}
+                onCancel={() => setShowListForm(false)}
+                existingLists={lists}/>
+            )}
 
         </div>
     );
