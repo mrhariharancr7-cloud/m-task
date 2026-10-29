@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import SuperadminLayout from "../components/SuperadminLayout";
+import SuperadminLayout from "../../components/SuperadminLayout";
 
 function SuperadminEnquiryDetails() {
 

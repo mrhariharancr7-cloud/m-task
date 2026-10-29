@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import SuperadminLayout from "../components/SuperadminLayout";
+import SuperadminLayout from "../../components/SuperadminLayout";
 
 function SuperadminDashboard() {
 
