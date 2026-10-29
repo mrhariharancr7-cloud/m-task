@@ -69,3 +69,15 @@ cd frontend
 npm run dev
 
 open the url shown in the frontend terminal,its on "http://localhost:5173"
+
+## 5.run using Makefile
+
+The project includes Makefile to simplify starting the application.
+
+Requirements: GNU Make, Node.js, npm, and a configured MongoDB connection.
+
+To start the backend and frontend together, open a terminal in the project root folder and run:
+
+make dev
+
+This command starts both frontend and backend. The frontend is available at http://localhost:5173, and the backend runs at http://localhost:5001.
