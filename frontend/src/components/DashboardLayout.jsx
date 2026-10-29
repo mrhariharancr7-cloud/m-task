@@ -98,6 +98,11 @@ function DashboardLayout() {
                         <span>My-Tasks</span>
                         </NavLink>
 
+                        <NavLink to="/dashboard/calendar" end className={navLinkClass}>
+                        <span className="text-lg text-current">▦</span>
+                        <span>Calendar</span>
+                        </NavLink>
+
                         {settings.showImportant && (
                         <NavLink to="/dashboard/important" end className={navLinkClass}>
                         <span className="text-lg text-current">★</span>

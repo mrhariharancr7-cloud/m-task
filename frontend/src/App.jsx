@@ -22,6 +22,7 @@ import MyTasks from "./pages/dashboard/MyTasks";
 import ImportantTasks from "./pages/dashboard/ImportantTasks";
 import CompletedTasks from "./pages/dashboard/CompletedTasks";
 import CustomListTasks from "./pages/dashboard/CustomListTasks";
+import Calendar from "./pages/dashboard/Calendar";
 
 function App() {
     return (
@@ -38,6 +39,7 @@ function App() {
                 <Route path="completed" element={<CompletedTasks />} />
                 <Route path="list/:listName" element={<CustomListTasks />} />
                 <Route path="settings" element={<Settings />} />
+                <Route path="calendar" element={<Calendar />} />
                 </Route>
                 
                 <Route path="/forgot-password" element={<ForgotPassword />} />

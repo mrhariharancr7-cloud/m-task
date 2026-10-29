@@ -5,14 +5,20 @@ import { useDashboard } from "../../context/DashboardContext";
 import TaskForm from "../../components/dashboard/TaskForm";
 import DeleteConfirmModal from "../../components/dashboard/DeleteConfirmModal";
 import ListForm from "../../components/dashboard/ListForm";
+import usePaginatedTasks from "../../hooks/usePaginatedTasks";
+import Pagination from "../../components/dashboard/Pagination";
 
 function CustomListTasks() {
     const { listName } = useParams();
     const navigate = useNavigate();
 
-    const {tasks ,lists ,handleAddTask ,handleCompleteTask, handleImportantTask, handleDeleteTask, handleUpdateTask, isTaskOverdue,
-        handleRenameList,handleDeleteList,
+    const decodedListName = decodeURIComponent(listName || "");
+
+    const {lists ,handleAddTask ,handleCompleteTask, handleImportantTask, handleDeleteTask, handleUpdateTask, isTaskOverdue,
+        handleRenameList,handleDeleteList
     } = useDashboard();
+    
+    const {tasks: listTasks, pagination, page, setPage, loading, refetch, pageSize, setPageSize} = usePaginatedTasks({list: decodedListName,limit: 10,})
 
     const [title, setTitle] = useState("");
     const [dueDate, setDueDate] = useState("");
@@ -20,21 +26,24 @@ function CustomListTasks() {
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [taskToDelete, setTaskToDelete] = useState(null);
     const [isDeleting, setIsDeleting] = useState(false);
-    const decodedListName = decodeURIComponent(listName || "");
     const [showRenameForm, setShowRenameForm] = useState(false);
     const [showListMenu, setShowListMenu] = useState(false);
     const [showDeleteListConfirm, setShowDeleteListConfirm] = useState(false);
     const [isDeletingList, setIsDeletingList] = useState(false);
 
-    const listTasks = tasks.filter(
-        (task) => task.list === decodedListName
-    );
-
-    const totalTasks = listTasks.length;
+    const totalTasks = pagination.totalTasks;
     const completedTasks = listTasks.filter((task) => task.completed).length;
     const pendingTasks = listTasks.filter((task) => !task.completed).length;
     const importantTasks = listTasks.filter((task) => task.important).length;
     const overdueTasks  = listTasks.filter((task) => isTaskOverdue(task)).length;
+
+    const handlePreviousPage = () => {
+        setPage((currentPage) => Math.max(currentPage - 1, 1));
+    };
+
+    const handleNextPage = () => {
+        setPage((currentPage) => Math.min(currentPage + 1, pagination.totalPages));
+    };
 
     const stats = [
         {
@@ -83,6 +92,7 @@ function CustomListTasks() {
             setTitle("");
             setDueDate("");
             setShowCreateForm(false);
+            refetch();
         }
     };
 
@@ -110,6 +120,12 @@ function CustomListTasks() {
         try {
             await handleDeleteTask(taskToDelete._id);
             setTaskToDelete(null);
+
+            if (listTasks.length === 1 && page > 1) {
+                setPage(page - 1);
+            } else {
+                refetch();
+            }
 
         } catch (error) {
             console.error("Failed to delete task:", error);
@@ -261,13 +277,16 @@ function CustomListTasks() {
                     <div className="space-y-4">
                         {listTasks.map((task) => (
                             <div key={task._id}
-                            className="flex flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_4px_18px_rgba(15,23,42,0.06)]
-                            transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                            className="flex flex-col gap-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-[0_4px_18px_rgba(15,23,42,0.06)]
+                            transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between sm:px-5">
 
                                 <div className="flex min-w-0 items-center gap-4">
                                     <button 
                                     type="button"
-                                    onClick={() => handleCompleteTask(task)}
+                                    onClick={async () => {
+                                        await handleCompleteTask(task);
+                                        refetch();
+                                    }}
                                     aria-label={
                                         task.completed
                                         ? "Mark task as incomplete"
@@ -323,7 +342,10 @@ function CustomListTasks() {
 
                                     <button 
                                     type="button"
-                                    onClick={() => handleImportantTask(task)}
+                                    onClick={async () => {
+                                        await handleImportantTask(task);
+                                        refetch();
+                                    }}
                                     className={`rounded-xl px-4 py-3 text-sm font-medium transition ${
                                         task.important
                                         ? "bg-amber-200 text-amber-800"
@@ -340,6 +362,22 @@ function CustomListTasks() {
                         ))}
                     </div>
                 )}
+
+                {pagination.totalTasks > 0 && (
+                <Pagination 
+                page={page}
+                totalPages={pagination.totalPages}
+                totalTasks={pagination.totalTasks}
+                pageSize={pageSize}
+                onPageSizeChange={(size) => {
+                setPageSize(size);
+                setPage(1);
+                }}
+                onPrevious={handlePreviousPage}
+                onNext={handleNextPage}
+                disabled={loading}/>
+            )}
+
             </div>
 
             {/*renamelist*/}

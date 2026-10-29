@@ -110,19 +110,15 @@ export const renameCustomList = async (req, res) => {
 
         const oldName = customList.name;
 
-        if (oldName.toLowerCase() !== newName.toLowerCase()) {
-            customList.name = newName;
-            customList.nameKey = newName.toLowerCase();
-
-            await customList.save();
+        if (oldName !== newName) {
 
             await Task.updateMany(
-                {user: req.user.userId,list: oldName}, {$set: { list: newName }}
+                {user: req.user.userId,list: oldName},
+                {$set: { list: newName }}
             );
-        } else if (oldName !== newName) {
+
             customList.name = newName;
             customList.nameKey = newName.toLowerCase();
-
             await customList.save();
         }
 

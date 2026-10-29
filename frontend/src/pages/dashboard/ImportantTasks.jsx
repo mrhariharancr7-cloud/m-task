@@ -3,9 +3,13 @@ import { useDashboard } from "../../context/DashboardContext";
 import TaskForm from "../../components/dashboard/TaskForm";
 import StatsCards from "../../components/dashboard/StatsCards";
 import DeleteConfirmModal from "../../components/dashboard/DeleteConfirmModal";
+import usePaginatedTasks from "../../hooks/usePaginatedTasks";
+import Pagination from "../../components/dashboard/Pagination";
 
 function ImportantTasks() {
-    const {tasks, handleAddTask, handleCompleteTask, handleImportantTask, handleDeleteTask, handleUpdateTask, isTaskOverdue,} = useDashboard();
+    const {handleAddTask, handleCompleteTask, handleImportantTask, handleDeleteTask, handleUpdateTask, isTaskOverdue} = useDashboard();
+
+    const {tasks: importantTasks, pagination, page, setPage, loading, error, refetch, pageSize, setPageSize} = usePaginatedTasks({ important: true, limit: 10 });
 
     const [title, setTitle] = useState("");
     const [dueDate, setDueDate] = useState("");
@@ -13,7 +17,14 @@ function ImportantTasks() {
     const [showCreateForm, setShowCreateForm] = useState(false);
     const [taskToDelete, setTaskToDelete] = useState(null);
     const [isDeleting, setIsDeleting] = useState(false);
-    const importantTasks = tasks.filter((task) => task.important);
+    
+    const handlePreviousPage = () => { 
+        setPage((currentPage) => Math.max(currentPage - 1, 1));
+    };
+
+    const handleNextPage = () => {
+        setPage((currentPage) => Math.min(currentPage + 1, pagination.totalPages));
+    };
 
     const handleSubmit = async (taskData) => {
         if (!taskData.title.trim()) {
@@ -44,6 +55,7 @@ function ImportantTasks() {
             setTitle("");
             setDueDate("");
             setShowCreateForm(false);
+            refetch();
         }
     };
 
@@ -71,6 +83,12 @@ function ImportantTasks() {
         try {
             await handleDeleteTask(taskToDelete._id);
             setTaskToDelete(null);
+
+            if (importantTasks.length === 1 && page > 1) {
+                setPage(page - 1);
+            } else {
+                refetch();
+            }
 
         } catch (error) {
             console.error("Failed to delete task:", error);
@@ -124,13 +142,16 @@ function ImportantTasks() {
                     <div className="space-y-4">
                         {importantTasks.map((task) => (
                             <div key={task._id}
-                            className="flex flex-col gap-4 rounded-2xl border border-slate-100 bg-white p-5 shadow-[0_4px_18px_rgba(15,23,42,0.06)]
-                            transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between sm:px-6">
+                            className="flex flex-col gap-3 rounded-2xl border border-slate-100 bg-white px-4 py-3 shadow-[0_4px_18px_rgba(15,23,42,0.06)]
+                            transition hover:shadow-md sm:flex-row sm:items-center sm:justify-between sm:px-5">
 
                                 <div className="flex min-w-0 items-center gap-4">
                                     <button 
                                     type="button"
-                                    onClick={() => handleCompleteTask(task)}
+                                    onClick={async () => {
+                                        await handleCompleteTask(task);
+                                        refetch();
+                                    }}
                                     aria-label={
                                         task.completed
                                         ? "Mark task as incomplete"
@@ -186,7 +207,10 @@ function ImportantTasks() {
 
                                     <button 
                                     type="button"
-                                    onClick={() => handleImportantTask(task)}
+                                    onClick={async () => {
+                                        await handleImportantTask(task);
+                                        refetch();
+                                    }}
                                     className={`rounded-xl px-4 py-3 text-sm font-medium transition ${
                                         task.important
                                         ? "bg-amber-200 text-amber-800"
@@ -203,6 +227,22 @@ function ImportantTasks() {
                         ))}
                     </div>
                 )}
+
+                {pagination.totalTasks > 0 && (
+                <Pagination 
+                page={page}
+                totalPages={pagination.totalPages}
+                totalTasks={pagination.totalTasks}
+                pageSize={pageSize}
+                onPageSizeChange={(size) => {
+                setPageSize(size);
+                setPage(1);
+                }}
+                onPrevious={handlePreviousPage}
+                onNext={handleNextPage}
+                disabled={loading}/>
+            )}
+            
             </div>
 
             <DeleteConfirmModal
@@ -211,6 +251,8 @@ function ImportantTasks() {
             onCancel={() => setTaskToDelete(null)}
             onConfirm={confirmDelete}
             isDeleting={isDeleting}/>
+
+            
 
         </section>
     )
